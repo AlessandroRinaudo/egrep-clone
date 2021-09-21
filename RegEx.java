@@ -31,36 +31,36 @@ public class RegEx {
 
     if (regEx.length() < 1) {
       System.err.println(">> ERROR: empty regEx.");
-    } else {
+    } 
+    else {
       System.out.print(">> ASCII codes: [" + (int) regEx.charAt(0));
       for (int i = 1; i < regEx.length(); i++)
         System.out.print("," + (int) regEx.charAt(i));
       System.out.println("].");
+      System.out.println(">> Strign result: " + regEx );
+
+      // l'algo commence ici
       try {
-        RegExTree ret = parse();
+        RegExTree ret = parse(); // fonction parse de la string regEx
         System.out.println(">> Tree result: " + ret.toString() + "\n");
       } catch (Exception e) {
         System.err.println(">> ERROR: syntax error for regEx \"" + regEx + "\".");
       }
-    }
 
+    }
   }
 
-  // FROM REGEX TO SYNTAX TREE
+  // FROM REGEX TO SYNTAX TREE (debug deleted)
+  /**
+   * 
+   * @return RegExTree
+   */
   private static RegExTree parse() throws Exception {
-    // BEGIN DEBUG: set conditionnal to true for debug example
-    if (false)
-      throw new Exception();
-    RegExTree example = exampleAhoUllman();
-    if (false)
-      return example;
-    // END DEBUG
+    ArrayList<RegExTree> result = new ArrayList<RegExTree>(); // arrayList de type RegExTree
+    for (int i = 0; i < regEx.length(); i++) // pour chaque élément de la string regEx
+      result.add(new RegExTree(charToRoot(regEx.charAt(i)), new ArrayList<RegExTree>())); // ajout dans la liste de type RegExTree chaque char de la string regEx avec des sous liste vides (soit ascii soit un symbole)
 
-    ArrayList<RegExTree> result = new ArrayList<RegExTree>();
-    for (int i = 0; i < regEx.length(); i++)
-      result.add(new RegExTree(charToRoot(regEx.charAt(i)), new ArrayList<RegExTree>()));
-
-    return parse(result);
+    return parse2(result);
   }
 
   private static int charToRoot(char c) {
@@ -77,7 +77,7 @@ public class RegEx {
     return (int) c;
   }
 
-  private static RegExTree parse(ArrayList<RegExTree> result) throws Exception {
+  private static RegExTree parse2(ArrayList<RegExTree> result) throws Exception {
     while (containParenthese(result))
       result = processParenthese(result);
     while (containEtoile(result))
@@ -117,7 +117,7 @@ public class RegEx {
           throw new Exception();
         found = true;
         ArrayList<RegExTree> subTrees = new ArrayList<RegExTree>();
-        subTrees.add(parse(content));
+        subTrees.add(parse2(content));
         result.add(new RegExTree(PROTECTION, subTrees));
       } else {
         result.add(t);
@@ -248,24 +248,6 @@ public class RegEx {
     return new RegExTree(tree.root, subTrees);
   }
 
-  // EXAMPLE
-  // --> RegEx from Aho-Ullman book Chap.10 Example 10.25
-  private static RegExTree exampleAhoUllman() {
-    RegExTree a = new RegExTree((int) 'a', new ArrayList<RegExTree>());
-    RegExTree b = new RegExTree((int) 'b', new ArrayList<RegExTree>());
-    RegExTree c = new RegExTree((int) 'c', new ArrayList<RegExTree>());
-    ArrayList<RegExTree> subTrees = new ArrayList<RegExTree>();
-    subTrees.add(c);
-    RegExTree cEtoile = new RegExTree(ETOILE, subTrees);
-    subTrees = new ArrayList<RegExTree>();
-    subTrees.add(b);
-    subTrees.add(cEtoile);
-    RegExTree dotBCEtoile = new RegExTree(CONCAT, subTrees);
-    subTrees = new ArrayList<RegExTree>();
-    subTrees.add(a);
-    subTrees.add(dotBCEtoile);
-    return new RegExTree(ALTERN, subTrees);
-  }
 }
 
 // UTILITARY CLASS
@@ -279,10 +261,16 @@ class RegExTree {
   }
 
   // FROM TREE TO PARENTHESIS
+
+  /**
+   * Every char does not contain any subtree list
+   */
   public String toString() {
-    if (subTrees.isEmpty())
+    if (subTrees.isEmpty()){
       return rootToString();
+    }
     String result = rootToString() + "(" + subTrees.get(0).toString();
+    System.out.println("Risultato : "+result );
     for (int i = 1; i < subTrees.size(); i++)
       result += "," + subTrees.get(i).toString();
     return result + ")";
