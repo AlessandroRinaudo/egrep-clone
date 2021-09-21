@@ -31,13 +31,12 @@ public class RegEx {
 
     if (regEx.length() < 1) {
       System.err.println(">> ERROR: empty regEx.");
-    } 
-    else {
+    } else {
       System.out.print(">> ASCII codes: [" + (int) regEx.charAt(0));
       for (int i = 1; i < regEx.length(); i++)
         System.out.print("," + (int) regEx.charAt(i));
       System.out.println("].");
-      System.out.println(">> Strign result: " + regEx );
+      System.out.println(">> Strign result: " + regEx);
 
       // l'algo commence ici
       try {
@@ -52,15 +51,21 @@ public class RegEx {
 
   // FROM REGEX TO SYNTAX TREE (debug deleted)
   /**
+   * il prend la string donnée en paramètre et il renvoie une RegExTree (au départ
+   * il crée une liste vide contenante que des feuilles)
    * 
    * @return RegExTree
    */
   private static RegExTree parse() throws Exception {
     ArrayList<RegExTree> result = new ArrayList<RegExTree>(); // arrayList de type RegExTree
     for (int i = 0; i < regEx.length(); i++) // pour chaque élément de la string regEx
-      result.add(new RegExTree(charToRoot(regEx.charAt(i)), new ArrayList<RegExTree>())); // ajout dans la liste de type RegExTree chaque char de la string regEx avec des sous liste vides (soit ascii soit un symbole)
+      result.add(new RegExTree(charToRoot(regEx.charAt(i)), new ArrayList<RegExTree>())); // ajout dans la liste de type
+                                                                                          // RegExTree chaque char de la
+                                                                                          // string regEx avec des sous
+                                                                                          // liste vides (soit ascii
+                                                                                          // soit un symbole)
 
-    return parse2(result);
+    return parse2(result); // c'est grâce à l'appelle de cette fonction qu'il crée le RegExTree
   }
 
   private static int charToRoot(char c) {
@@ -77,6 +82,12 @@ public class RegEx {
     return (int) c;
   }
 
+  /**
+   * il commence à traiter dans l'orde : les parentheses, les étoiles, les concats, les altern
+   * @param result une List de RegExTree contenante que des feuilles (de l'objet
+   *               RegExTree il contient que root)
+   * @return un RegExTree complet (constitué par un root et une list de RegExTree)
+   */
   private static RegExTree parse2(ArrayList<RegExTree> result) throws Exception {
     while (containParenthese(result))
       result = processParenthese(result);
@@ -100,6 +111,10 @@ public class RegEx {
     return false;
   }
 
+  /**
+   * @param trees une liste de RegExTree 
+   * @return une liste de RegExTree 
+   */
   private static ArrayList<RegExTree> processParenthese(ArrayList<RegExTree> trees) throws Exception {
     ArrayList<RegExTree> result = new ArrayList<RegExTree>();
     boolean found = false;
@@ -136,6 +151,7 @@ public class RegEx {
   }
 
   private static ArrayList<RegExTree> processEtoile(ArrayList<RegExTree> trees) throws Exception {
+    System.out.println("processEtoile");
     ArrayList<RegExTree> result = new ArrayList<RegExTree>();
     boolean found = false;
     for (RegExTree t : trees) {
@@ -151,6 +167,7 @@ public class RegEx {
         result.add(t);
       }
     }
+    System.out.println(result.toString());
     return result;
   }
 
@@ -171,6 +188,7 @@ public class RegEx {
   }
 
   private static ArrayList<RegExTree> processConcat(ArrayList<RegExTree> trees) throws Exception {
+    System.out.println("processConcat");
     ArrayList<RegExTree> result = new ArrayList<RegExTree>();
     boolean found = false;
     boolean firstFound = false;
@@ -196,6 +214,7 @@ public class RegEx {
         result.add(t);
       }
     }
+    System.out.println(result.toString());
     return result;
   }
 
@@ -207,6 +226,7 @@ public class RegEx {
   }
 
   private static ArrayList<RegExTree> processAltern(ArrayList<RegExTree> trees) throws Exception {
+    System.out.println("processAltern");
     ArrayList<RegExTree> result = new ArrayList<RegExTree>();
     boolean found = false;
     RegExTree gauche = null;
@@ -231,6 +251,7 @@ public class RegEx {
         result.add(t);
       }
     }
+    System.out.println(result.toString());
     return result;
   }
 
@@ -266,11 +287,10 @@ class RegExTree {
    * Every char does not contain any subtree list
    */
   public String toString() {
-    if (subTrees.isEmpty()){
+    if (subTrees.isEmpty()) {
       return rootToString();
     }
     String result = rootToString() + "(" + subTrees.get(0).toString();
-    System.out.println("Risultato : "+result );
     for (int i = 1; i < subTrees.size(); i++)
       result += "," + subTrees.get(i).toString();
     return result + ")";
