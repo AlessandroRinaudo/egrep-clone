@@ -1,15 +1,8 @@
 import java.util.ArrayList;
 import java.lang.Exception;
 
-public class RegExParser {
-  // MACROS
-  static final int CONCAT = 0xC04CA7;
-  static final int ETOILE = 0xE7011E;
-  static final int ALTERN = 0xA17E54;
-  static final int PROTECTION = 0xBADDAD;
-  static final int PARENTHESEOUVRANT = 0x16641664;
-  static final int PARENTHESEFERMANT = 0x51515151;
-
+public class RegExParser implements Macros{
+  
   /**
    * il commence à traiter dans l'orde : les parentheses, les étoiles, les
    * concats, les altern

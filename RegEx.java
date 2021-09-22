@@ -2,14 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.lang.Exception;
 
-public class RegEx {
-  // MACROS
-  static final int CONCAT = 0xC04CA7;
-  static final int ETOILE = 0xE7011E;
-  static final int ALTERN = 0xA17E54;
-  static final int PARENTHESEOUVRANT = 0x16641664;
-  static final int PARENTHESEFERMANT = 0x51515151;
-  static final int DOT = 0xD07;
+public class RegEx implements Macros{
 
   // REGEX
   private static String regEx;

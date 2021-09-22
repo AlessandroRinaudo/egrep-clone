@@ -1,10 +1,6 @@
 import java.util.ArrayList;
-public class NDFAutomaton {
-  // MACROS
-  static final int CONCAT = 0xC04CA7;
-  static final int ETOILE = 0xE7011E;
-  static final int ALTERN = 0xA17E54;
-  static final int DOT = 0xD07;
+
+public class NDFAutomaton implements Macros {
 
   // IMPLICIT REPRESENTATION HERE: INIT STATE IS ALWAYS 0; FINAL STATE IS ALWAYS
   // transitionTable.length-1
@@ -28,7 +24,6 @@ public class NDFAutomaton {
           result += "  " + i + " -- " + (char) col + " --> " + transitionTable[i][col] + "\n";
     return result;
   }
-
 
   public static NDFAutomaton step2_AhoUllman(RegExTree ret) {
 
