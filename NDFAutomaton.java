@@ -1,14 +1,9 @@
 import java.util.ArrayList;
-import java.lang.Exception;
-
 public class NDFAutomaton {
   // MACROS
   static final int CONCAT = 0xC04CA7;
   static final int ETOILE = 0xE7011E;
   static final int ALTERN = 0xA17E54;
-  static final int PROTECTION = 0xBADDAD;
-  static final int PARENTHESEOUVRANT = 0x16641664;
-  static final int PARENTHESEFERMANT = 0x51515151;
   static final int DOT = 0xD07;
 
   // IMPLICIT REPRESENTATION HERE: INIT STATE IS ALWAYS 0; FINAL STATE IS ALWAYS
@@ -174,7 +169,6 @@ public class NDFAutomaton {
 
       return new NDFAutomaton(tTab, eTab);
     }
-
     return null;
   }
 

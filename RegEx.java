@@ -7,8 +7,6 @@ public class RegEx {
   static final int CONCAT = 0xC04CA7;
   static final int ETOILE = 0xE7011E;
   static final int ALTERN = 0xA17E54;
-  static final int PROTECTION = 0xBADDAD;
-
   static final int PARENTHESEOUVRANT = 0x16641664;
   static final int PARENTHESEFERMANT = 0x51515151;
   static final int DOT = 0xD07;
@@ -21,6 +19,7 @@ public class RegEx {
     Scanner scanner = new Scanner(System.in);
     System.out.print("\n>> Please enter a regEx: ");
     regEx = scanner.next();
+    scanner.close();
     System.out.println(">> Parsing regEx \"" + regEx + "\".");
     System.out.println(">> ...");
 
