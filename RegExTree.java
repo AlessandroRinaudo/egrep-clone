@@ -25,13 +25,13 @@ public class RegExTree {
   }
 
   private String rootToString() {
-    if (root == Step1then2.CONCAT)
+    if (root == RegEx.CONCAT)
       return ".";
-    if (root == Step1then2.ETOILE)
+    if (root == RegEx.ETOILE)
       return "*";
-    if (root == Step1then2.ALTERN)
+    if (root == RegEx.ALTERN)
       return "|";
-    if (root == Step1then2.DOT)
+    if (root == RegEx.DOT)
       return ".";
     return Character.toString((char) root);
   }
