@@ -17,10 +17,6 @@ public class RegEx {
   // REGEX
   private static String regEx;
 
-  // CONSTRUCTOR
-  public RegEx() {
-  }
-
   // MAIN
   public static void main(String arg[]) {
     Scanner scanner = new Scanner(System.in);
