@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.lang.Exception;
 
-public class RegEx implements Macros{
+public class RegEx implements Macros {
 
   // REGEX
   private static String regEx;
@@ -33,8 +33,8 @@ public class RegEx implements Macros{
       } catch (Exception e) {
         System.err.println(">> ERROR: syntax error for regEx \"" + regEx + "\".");
       }
-      NDFAutomaton ndfa = NDFAutomaton.step2_AhoUllman(ret);
-      System.out.println("  >> NDFA construction:\n\nBEGIN NDFA\n"+ndfa.toString()+"END NDFA.\n");
+      NDFAutomaton ndfa = NDFAutomaton.step2_AhoUllman(ret); // étape deux de l'algorithme
+      System.out.println("  >> NDFA construction:\n\nBEGIN NDFA\n" + ndfa.toString() + "END NDFA.\n");
     }
   }
 

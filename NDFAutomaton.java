@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
 public class NDFAutomaton implements Macros {
-
   // IMPLICIT REPRESENTATION HERE: INIT STATE IS ALWAYS 0; FINAL STATE IS ALWAYS
   // transitionTable.length-1
   protected int[][] transitionTable; // ASCII transition
