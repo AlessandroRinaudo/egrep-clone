@@ -12,6 +12,7 @@ public class RegEx implements Macros {
     Scanner scanner = new Scanner(System.in);
     System.out.print("\n>> Please enter a regEx: ");
     regEx = scanner.next();
+    regEx = regEx.replace(".", ""); // remove . concatenation
     scanner.close();
     System.out.println(">> Parsing regEx \"" + regEx + "\".");
     System.out.println(">> ...");
@@ -40,8 +41,8 @@ public class RegEx implements Macros {
 
   // FROM REGEX TO SYNTAX TREE (debug deleted)
   /**
-   * il prend la string donnée en paramètre et il renvoie une RegExTree (au départ
-   * il crée une liste vide contenante que des feuilles)
+   * il prends la string donnée en paramètre et il renvoie une RegExTree (au
+   * départ il crée une liste vide contenante que des feuilles)
    * 
    * @return RegExTree
    */
