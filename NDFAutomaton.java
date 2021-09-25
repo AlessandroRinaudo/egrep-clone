@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class NDFAutomaton implements Macros {
   // IMPLICIT REPRESENTATION HERE: INIT STATE IS ALWAYS 0; FINAL STATE IS ALWAYS
   // transitionTable.length-1
-  protected int[][] transitionTable; // ASCII transition
-  protected ArrayList<Integer>[] epsilonTransitionTable; // epsilon transition list
+  protected int[][] transitionTable; // ASCII transition : tableau à deux dimension d'entiers
+  protected ArrayList<Integer>[] epsilonTransitionTable; // epsilon transition list : Tableau d'ArrayList d'entiers
 
   public NDFAutomaton(int[][] transitionTable, ArrayList<Integer>[] epsilonTransitionTable) {
     this.transitionTable = transitionTable;
@@ -13,14 +13,31 @@ public class NDFAutomaton implements Macros {
 
   // PRINT THE AUTOMATON TRANSITION TABLE
   public String toString() {
+    // INIT STATE IS ALWAYS 0; FINAL STATE IS ALWAYS transitionTable.length-1
     String result = "Initial state: 0\nFinal state: " + (transitionTable.length - 1) + "\nTransition list:\n";
-    for (int i = 0; i < epsilonTransitionTable.length; i++)
-      for (int state : epsilonTransitionTable[i])
+
+    // Affiche les transition epsilon
+    // pour chauqe element du tableau affiche à gauche l'indice du tableau et à
+    // droite l'arrayList corrispondent
+    System.out.println("epsilonTransitionTable.length: " + epsilonTransitionTable.length);
+    for (int i = 0; i < epsilonTransitionTable.length; i++) {
+      System.out
+          .println("sono all'indice numero : " + i + " e contengo questo elemento : " + epsilonTransitionTable[i]);
+      // il montre pour chaque indice le contenu en entier de l'arrayList si present
+      for (int state : epsilonTransitionTable[i]) {
         result += "  " + i + " -- epsilon --> " + state + "\n";
+      }
+
+    }
+
+    // affiche les transitions non-epsilon
+    System.out.println("transitionTable.length: " + transitionTable.length);
     for (int i = 0; i < transitionTable.length; i++)
-      for (int col = 0; col < 256; col++)
-        if (transitionTable[i][col] != -1)
+      for (int col = 0; col < 256; col++) // la colonne va de 0 à 255 (le code ASCII des lettres)
+        if (transitionTable[i][col] != -1) // si la valeur n'est pas null alors écrit à gauche l'indice du tableau au
+                                           // centre le char de la colonne et à droite la valeur
           result += "  " + i + " -- " + (char) col + " --> " + transitionTable[i][col] + "\n";
+
     return result;
   }
 

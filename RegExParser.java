@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.lang.Exception;
 
-public class RegExParser implements Macros{
-  
+public class RegExParser implements Macros {
+
   /**
    * il commence à traiter dans l'orde : les parentheses, les étoiles, les
    * concats, les altern
