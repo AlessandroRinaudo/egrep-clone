@@ -19,9 +19,7 @@ public class NDFAutomaton implements Macros {
     // Affiche les transition epsilon
     // pour chauqe element du tableau affiche à gauche l'indice du tableau et à
     // droite l'arrayList corrispondent
-    System.out.println("epsilonTransitionTable.length: " + epsilonTransitionTable.length);
     for (int i = 0; i < epsilonTransitionTable.length; i++) {
-      // System.out.println("sono all'indice numero : " + i + " e contengo questo
       // elemento : " + epsilonTransitionTable[i]);
       // il montre pour chaque indice le contenu en entier de l'arrayList si present
       for (int state : epsilonTransitionTable[i]) {
@@ -31,14 +29,10 @@ public class NDFAutomaton implements Macros {
     }
 
     // affiche les transitions non-epsilon
-    System.out.println("transitionTable.length: " + transitionTable.length);
     for (int i = 0; i < transitionTable.length; i++)
       for (int col = 0; col < 256; col++) { // la colonne va de 0 à 255 (le code ASCII des lettres)
-        // System.out.println(" tTab[" + i + "][" + col + "] = " +
-        // transitionTable[i][col]);
         if (transitionTable[i][col] != -1) { // si la valeur n'est pas null alors écrit à gauche l'indice du tableau au
                                              // centre le char de la colonne et à droite la valeur
-          System.out.println(" tTab[" + i + "][" + col + "] = " + transitionTable[i][col]);
           result += "  " + i + " -- " + (char) col + " --> " + transitionTable[i][col] + "\n";
         }
       }
@@ -46,22 +40,14 @@ public class NDFAutomaton implements Macros {
     return result;
   }
 
-  // public static void step2_AhoUllman2(RegExTree ret) {
-  // System.out.println("ret : " + ret + "\nroot : " + ret.root + " subTree : " +
-  // ret.subTrees);
-  // }
-
   public static NDFAutomaton step2_AhoUllman(RegExTree ret) {
-    System.out.println("ret : " + ret + "\nroot : " + ret.root + " subTree : " + ret.subTrees);
     if (ret.subTrees.isEmpty()) {
-      System.out.println("Sono sena foglie\n");
       // IMPLICIT REPRESENTATION HERE: INIT STATE IS ALWAYS 0; FINAL STATE IS ALWAYS
       // transitionTable.length-1
       int[][] tTab = new int[2][256];
       ArrayList<Integer>[] eTab = new ArrayList[2];
 
       // DUMMY VALUES FOR INITIALIZATION
-      System.out.println("lunghezza tTab : " + tTab.length);
       for (int i = 0; i < tTab.length; i++)
         for (int col = 0; col < 256; col++) {
           tTab[i][col] = -1;
@@ -71,13 +57,11 @@ public class NDFAutomaton implements Macros {
         eTab[i] = new ArrayList<Integer>();
 
       if (ret.root != DOT) {
-        System.out.println("NON SONO DOOOT");
         tTab[0][ret.root] = 1; // transition ret.root from initial state "0" to final state "1"
       }
 
       // DANS LE CAS DE BUG
       // else {
-      // System.out.println("SONO DOOOT");
       // for (int i = 0; i < 256; i++)
       // tTab[0][i] = 1; // transition DOT from initial state "0" to final state "1"
       // }
@@ -85,14 +69,11 @@ public class NDFAutomaton implements Macros {
     }
 
     if (ret.root == CONCAT) {
-      System.out.println("Sono CONCAT\n");
       // IMPLICIT REPRESENTATION HERE: INIT STATE IS ALWAYS 0; FINAL STATE IS ALWAYS
       // transitionTable.length-1
-      System.out.println("RICHIAMA : A sinistra");
       NDFAutomaton gauche = step2_AhoUllman(ret.subTrees.get(0));
       int[][] tTab_g = gauche.transitionTable;
       ArrayList<Integer>[] eTab_g = gauche.epsilonTransitionTable;
-      System.out.println("RICHIAMA : A destra");
       NDFAutomaton droite = step2_AhoUllman(ret.subTrees.get(1));
       int[][] tTab_d = droite.transitionTable;
       ArrayList<Integer>[] eTab_d = droite.epsilonTransitionTable;
@@ -128,14 +109,11 @@ public class NDFAutomaton implements Macros {
     }
 
     if (ret.root == ALTERN) {
-      System.out.println("Sono ALTERN\n");
       // IMPLICIT REPRESENTATION HERE: INIT STATE IS ALWAYS 0; FINAL STATE IS ALWAYS
       // transitionTable.length-1
-      System.out.println("RICHIAMA : A sinistra");
       NDFAutomaton gauche = step2_AhoUllman(ret.subTrees.get(0));
       int[][] tTab_g = gauche.transitionTable;
       ArrayList<Integer>[] eTab_g = gauche.epsilonTransitionTable;
-      System.out.println("RICHIAMA : A destra");
       NDFAutomaton droite = step2_AhoUllman(ret.subTrees.get(1));
       int[][] tTab_d = droite.transitionTable;
       ArrayList<Integer>[] eTab_d = droite.epsilonTransitionTable;
@@ -175,10 +153,8 @@ public class NDFAutomaton implements Macros {
     }
 
     if (ret.root == ETOILE) {
-      System.out.println("Sono ETOILE\n");
       // IMPLICIT REPRESENTATION HERE: INIT STATE IS ALWAYS 0; FINAL STATE IS ALWAYS
       // transitionTable.length-1
-      System.out.println("RICHIAMA : Figlio di stella");
       NDFAutomaton fils = step2_AhoUllman(ret.subTrees.get(0));
       int[][] tTab_fils = fils.transitionTable;
       ArrayList<Integer>[] eTab_fils = fils.epsilonTransitionTable;

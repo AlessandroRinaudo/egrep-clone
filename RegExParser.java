@@ -74,7 +74,6 @@ public class RegExParser implements Macros {
   }
 
   private static ArrayList<RegExTree> processEtoile(ArrayList<RegExTree> trees) throws Exception {
-    System.out.println("processEtoile");
     ArrayList<RegExTree> result = new ArrayList<RegExTree>();
     boolean found = false;
     for (RegExTree t : trees) {
@@ -90,7 +89,6 @@ public class RegExParser implements Macros {
         result.add(t);
       }
     }
-    System.out.println(result.toString());
     return result;
   }
 
@@ -111,7 +109,6 @@ public class RegExParser implements Macros {
   }
 
   private static ArrayList<RegExTree> processConcat(ArrayList<RegExTree> trees) throws Exception {
-    System.out.println("processConcat");
     ArrayList<RegExTree> result = new ArrayList<RegExTree>();
     boolean found = false;
     boolean firstFound = false;
@@ -137,7 +134,6 @@ public class RegExParser implements Macros {
         result.add(t);
       }
     }
-    System.out.println(result.toString());
     return result;
   }
 
@@ -149,7 +145,6 @@ public class RegExParser implements Macros {
   }
 
   private static ArrayList<RegExTree> processAltern(ArrayList<RegExTree> trees) throws Exception {
-    System.out.println("processAltern");
     ArrayList<RegExTree> result = new ArrayList<RegExTree>();
     boolean found = false;
     RegExTree gauche = null;
@@ -174,7 +169,6 @@ public class RegExParser implements Macros {
         result.add(t);
       }
     }
-    System.out.println(result.toString());
     return result;
   }
 
