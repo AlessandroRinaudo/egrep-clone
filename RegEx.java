@@ -20,8 +20,8 @@ public class RegEx implements Macros {
     if (regEx.length() < 1) {
       System.err.println(">> ERROR: empty regEx.");
     } else {
-      System.out.print(">> ASCII codes: [" + (int) regEx.charAt(0));
-      for (int i = 1; i < regEx.length(); i++)
+      System.out.print(">> ASCII codes: [" );
+      for (int i = 0; i < regEx.length(); i++)
         System.out.print("," + (int) regEx.charAt(i));
       System.out.println("].");
       RegExTree ret = null;
@@ -37,6 +37,7 @@ public class RegEx implements Macros {
       // NDFAutomaton.step2_AhoUllman2(ret); // étape deux de l'algorithme
       NDFAutomaton ndfa = NDFAutomaton.step2_AhoUllman(ret); // étape deux de l'algorithme
       System.out.println("NDFA construction:\n\nBEGIN NDFA\n" + ndfa.toString() + "END NDFA.\n");
+      Determinisation.step3Determinisation(0,ndfa);
     }
   }
 
