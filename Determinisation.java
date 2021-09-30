@@ -9,19 +9,17 @@ public class Determinisation {
   }
 
   public static ArrayList<DFA> continuoAlgo(int etat, NDFAutomaton matriceEtape2) {
-    ArrayList<DFA> determinisationStep1 = new ArrayList<DFA>();
-    // ArrayList<DFA> determinisationStep1 = step3Determinisation(etat,
-    // matriceEtape2);
-    // for(int i = 0; i < determinisationStep1.size(); i++) {
-    // System.err.println(determinisationStep1.get(i).valeur);
-    ArrayList<Integer> prova = new ArrayList<Integer>();
-    // prova.add(4); prova.add(5);prova.add(6); prova.add(8);prova.add(9);
-    // prova.add(1); prova.add(3);
-    // prova.add(2);
-    // prova.add(9);
-    // prova.add(7); prova.add(8);prova.add(6); 
-    determinisationStep1.addAll(toLoop(prova, matriceEtape2));
-    // }
+    // ArrayList<DFA> determinisationStep1 = new ArrayList<DFA>();
+    ArrayList<DFA> determinisationStep1 = step3Determinisation(etat, matriceEtape2);
+    determinisationStep1.addAll(toLoop(determinisationStep1.get(0).valeur, matriceEtape2));
+    for (int i = 1; i < determinisationStep1.size(); i++) {
+      System.err.println(determinisationStep1.get(i).valeur);
+      if (determinisationStep1.get(i).valeur.equals(determinisationStep1.get(i - 1).valeur)) {
+        break;
+      } 
+      determinisationStep1.addAll(toLoop(determinisationStep1.get(i).valeur,matriceEtape2));
+
+    }
     return determinisationStep1;
 
   }
@@ -60,7 +58,7 @@ public class Determinisation {
       res = addEpsilon(value, matriceEtape2);
       return new DFA(listLine, coloumn, res);
     }
-    System.out.println("Value not found");
+    // System.out.println("Value not found");
     return new DFA(listLine, coloumn, res);
   }
 
