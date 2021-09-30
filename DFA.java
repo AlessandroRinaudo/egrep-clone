@@ -7,13 +7,15 @@ public class DFA {
   protected boolean isFirst;
   protected boolean isLast;
 
-  public DFA(ArrayList<Integer> line, int column, ArrayList<Integer> valeur, boolean isFirst, boolean isLast) {
+  public DFA(ArrayList<Integer> line, int column, ArrayList<Integer> valeur) {
     this.line = line;
     this.column = column;
     this.valeur = valeur;
-    this.isFirst = isFirst;
-    this.isLast = isLast;
+    isFirst=false;isLast=false;
+    // this.isFirst = isFirst;
+    // this.isLast = isLast;
   }
 
+  
 
 }
