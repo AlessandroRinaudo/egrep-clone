@@ -1,4 +1,3 @@
-import java.util.Map;
 import java.util.ArrayList;
 
 public class Determinisation {
@@ -9,21 +8,45 @@ public class Determinisation {
     this.FromNdfaToDfa = FromNdfaToDfa;
   }
 
+  public static ArrayList<DFA> continuoAlgo(int etat, NDFAutomaton matriceEtape2) {
+    ArrayList<DFA> determinisationStep1 = new ArrayList<DFA>();
+    // ArrayList<DFA> determinisationStep1 = step3Determinisation(etat,
+    // matriceEtape2);
+    // for(int i = 0; i < determinisationStep1.size(); i++) {
+    // System.err.println(determinisationStep1.get(i).valeur);
+    ArrayList<Integer> prova = new ArrayList<Integer>();
+    // prova.add(4); prova.add(5);prova.add(6); prova.add(8);prova.add(9);
+    // prova.add(1); prova.add(3);
+    // prova.add(2);
+    // prova.add(9);
+    // prova.add(7); prova.add(8);prova.add(6); 
+    determinisationStep1.addAll(toLoop(prova, matriceEtape2));
+    // }
+    return determinisationStep1;
+
+  }
+
   public static ArrayList<DFA> step3Determinisation(int etat, NDFAutomaton matriceEtape2) {
-    ArrayList<DFA> res = new ArrayList<DFA>();
     // dans l'étape 1 la variable etat est 0
     if (!findOccurenceEpsilonTable(etat, matriceEtape2.epsilonTransitionTable).isEmpty()) {
       // etape 1
       ArrayList<Integer> listATraiter = findOccurenceEpsilonTable(0, matriceEtape2.epsilonTransitionTable);
       // listATraiter.add(0, 0);
       // ArrayList<Integer> listValues = new ArrayList<Integer>();
-      for (int i = 0; i < listATraiter.size(); i++) {
-        int courentElementList = listATraiter.get(i);
-        res.add(setCase(courentElementList, matriceEtape2, listATraiter));
-      }
-
+      return toLoop(listATraiter, matriceEtape2);
     }
 
+    return new ArrayList<DFA>();
+  }
+
+  public static ArrayList<DFA> toLoop(ArrayList<Integer> listATraiter, NDFAutomaton matriceEtape2) {
+    ArrayList<DFA> res = new ArrayList<DFA>();
+    for (int i = 0; i < listATraiter.size(); i++) {
+      int courentElementList = listATraiter.get(i);
+      DFA verify = setCase(courentElementList, matriceEtape2, listATraiter);
+      if (verify.column != -1)
+        res.add(setCase(courentElementList, matriceEtape2, listATraiter));
+    }
     return res;
   }
 
@@ -31,9 +54,9 @@ public class Determinisation {
     ArrayList<Integer> res = new ArrayList<Integer>();
     int coloumn = getArrayIndexColoumnNumber(courentElementList, matriceEtape2.transitionTable);
     if (coloumn != -1) {
-      System.out.println("coloumn : " + (char) coloumn);
+      // System.out.println("coloumn : " + (char) coloumn);
       int value = getTransitionTableValue(courentElementList, coloumn, matriceEtape2.transitionTable);
-      System.out.println("value : " + value);
+      // System.out.println("value : " + value);
       res = addEpsilon(value, matriceEtape2);
       return new DFA(listLine, coloumn, res);
     }
@@ -58,8 +81,8 @@ public class Determinisation {
         listATraiter = findOccurenceEpsilonTable(listATraiter.get(i), matriceEtape2.epsilonTransitionTable);
       }
     }
-    for (int i = 0; i < res.size(); i++)
-      System.out.println(res.get(i));
+    // for (int i = 0; i < res.size(); i++)
+    // System.out.println(res.get(i));
     return res;
   }
 

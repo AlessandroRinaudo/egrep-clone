@@ -37,10 +37,9 @@ public class RegEx implements Macros {
       // NDFAutomaton.step2_AhoUllman2(ret); // étape deux de l'algorithme
       NDFAutomaton ndfa = NDFAutomaton.step2_AhoUllman(ret); // étape deux de l'algorithme
       System.out.println("NDFA construction:\n\nBEGIN NDFA\n" + ndfa.toString() + "END NDFA.\n");
-      ArrayList<DFA> det = Determinisation.step3Determinisation(0,ndfa);
-      for(int i = 0; i < det.size(); i++) {
+      ArrayList<DFA> det = Determinisation.continuoAlgo(0,ndfa);
         System.out.println(det);
-      }
+      
 
     }
   }

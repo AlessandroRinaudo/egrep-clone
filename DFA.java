@@ -16,6 +16,11 @@ public class DFA {
     // this.isLast = isLast;
   }
 
-  
 
+  @Override
+  public String toString() {
+    return "\n\nline=" + line +
+            ", column=" + (char)column +
+            ", valeur=" + valeur+"\n\n";
+  }
 }
