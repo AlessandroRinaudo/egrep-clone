@@ -16,12 +16,11 @@ public class Determinisation {
       System.err.println(determinisationStep1.get(i).valeur);
       if (determinisationStep1.get(i).valeur.equals(determinisationStep1.get(i - 1).valeur)) {
         break;
-      } 
-      determinisationStep1.addAll(toLoop(determinisationStep1.get(i).valeur,matriceEtape2));
+      }
+      determinisationStep1.addAll(toLoop(determinisationStep1.get(i).valeur, matriceEtape2));
 
     }
     return determinisationStep1;
-
   }
 
   public static ArrayList<DFA> step3Determinisation(int etat, NDFAutomaton matriceEtape2) {
@@ -33,8 +32,10 @@ public class Determinisation {
       // ArrayList<Integer> listValues = new ArrayList<Integer>();
       return toLoop(listATraiter, matriceEtape2);
     }
+    ArrayList<Integer> listATraiter = new ArrayList<Integer>();
+    listATraiter.add(0);
+    return toLoop(listATraiter, matriceEtape2);
 
-    return new ArrayList<DFA>();
   }
 
   public static ArrayList<DFA> toLoop(ArrayList<Integer> listATraiter, NDFAutomaton matriceEtape2) {
