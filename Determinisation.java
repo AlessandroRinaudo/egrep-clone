@@ -10,7 +10,11 @@ public class Determinisation {
 
   @Override
   public String toString() {
-    return "Determinisation : \n" + FromNdfaToDfa ;
+    String res="";
+    for(int i = 0; i <FromNdfaToDfa.size(); i++) {
+      res+=FromNdfaToDfa.get(i);
+    }
+    return res;
   }
 
   public static ArrayList<DFA> continuoAlgo(int etat, NDFAutomaton matriceEtape2) {
@@ -24,6 +28,14 @@ public class Determinisation {
     }
     return determinisationStep1;
   }
+
+  // public static ArrayList<DFA> automatisationStep1 (ArrayList<DFA> determinisationStep1) {
+  //   ArrayList<DFA> res = new ArrayList<DFA>();
+  //   for(int i = 0; i < determinisationStep1.size(); i++) {
+  //     res.add(determinisationStep1.get(i).line.get(0),determinisationStep1.get(i).column,determinisationStep1.get(i).valeur.get(0));
+  //   }
+  // }
+
 
   public static ArrayList<DFA> step3Determinisation(int etat, NDFAutomaton matriceEtape2) {
     // dans l'étape 1 la variable etat est 0
