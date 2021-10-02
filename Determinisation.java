@@ -15,7 +15,7 @@ public class Determinisation {
 
   @Override
   public String toString() {
-    String res = "";
+    String res = "BEGIN DETERMINISATION :\n";
     for (int i = 0; i < FromNdfaToDfa.size(); i++) {
       res += FromNdfaToDfa.get(i);
     }
@@ -26,19 +26,28 @@ public class Determinisation {
     for(int i=0;i<finalState.size()-1; i++)
       res+=finalState.get(i)+", ";
     res+=finalState.get(finalState.size()-1);
+    res+="\n\nEND DETERMINISATION\n";
     return res;
   }
 
+  /**
+   * Set a list with the last elements of an automata state
+   */
   public static ArrayList<Integer>  setLast(ArrayList<DFA> determination,NDFAutomaton matriceEtape2) {
     ArrayList<Integer>  finalState = new ArrayList<Integer>();
     for (int i = 0; i < determination.size(); i++) {
       if (determination.get(i).valeur.contains(matriceEtape2.epsilonTransitionTable.length-1)) {
-        finalState.add(determination.get(i).valeur.get(0));
+          finalState.add(determination.get(i).valeur.get(0));
       }
+    }
+    //remove double elements
+    for(int i=0; i<finalState.size()-1; i++) {
+      if(finalState.get(i)==(finalState.get(i+1)))
+      finalState.remove(finalState.get(i));
     }
     return finalState;
   }
-
+  
   public static ArrayList<DFA> DeterminisationFinalisation(int etat, NDFAutomaton matriceEtape2) {
     ArrayList<DFA> determinisationStep1 = step3Determinisation(etat, matriceEtape2);
     determinisationStep1.addAll(toLoop(determinisationStep1.get(0).valeur, matriceEtape2));
@@ -49,7 +58,6 @@ public class Determinisation {
       determinisationStep1.addAll(toLoop(determinisationStep1.get(i).valeur, matriceEtape2));
     }
     return determinisationStep1;
-    // return setFirstAndLast(determinisationStep1,matriceEtape2);
   }
 
   public static ArrayList<DFA> step3Determinisation(int etat, NDFAutomaton matriceEtape2) {
