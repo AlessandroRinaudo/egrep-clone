@@ -10,14 +10,32 @@ public class Determinisation {
 
   @Override
   public String toString() {
-    String res="";
-    for(int i = 0; i <FromNdfaToDfa.size(); i++) {
-      res+=FromNdfaToDfa.get(i);
+    String res = "";
+    for (int i = 0; i < FromNdfaToDfa.size(); i++) {
+      res += FromNdfaToDfa.get(i);
     }
     return res;
   }
 
-  public static ArrayList<DFA> continuoAlgo(int etat, NDFAutomaton matriceEtape2) {
+  public static Determinisation minimisationStep1(Determinisation det) {
+    ArrayList<DFA> dete = det.FromNdfaToDfa;
+    ArrayList<DFA> res = new ArrayList<DFA>();
+    for (int i = 0; i < dete.size(); i++) {
+      int nLine = dete.get(i).line.get(0);
+      int nColoumn = dete.get(i).column;
+      int nValeur = dete.get(i).valeur.get(0);
+      res.add(new DFA(fromIntToListInt(nLine), nColoumn, fromIntToListInt(nValeur)));
+    }
+    return new Determinisation(res);
+  }
+
+  private static ArrayList<Integer> fromIntToListInt(int nb) {
+    ArrayList<Integer> res = new ArrayList<Integer>();
+    res.add(nb);
+    return res;
+  }
+
+  public static ArrayList<DFA> DeterminisationFinalisation(int etat, NDFAutomaton matriceEtape2) {
     ArrayList<DFA> determinisationStep1 = step3Determinisation(etat, matriceEtape2);
     determinisationStep1.addAll(toLoop(determinisationStep1.get(0).valeur, matriceEtape2));
     for (int i = 1; i < determinisationStep1.size(); i++) {
@@ -29,20 +47,12 @@ public class Determinisation {
     return determinisationStep1;
   }
 
-  // public static ArrayList<DFA> automatisationStep1 (ArrayList<DFA> determinisationStep1) {
-  //   ArrayList<DFA> res = new ArrayList<DFA>();
-  //   for(int i = 0; i < determinisationStep1.size(); i++) {
-  //     res.add(determinisationStep1.get(i).line.get(0),determinisationStep1.get(i).column,determinisationStep1.get(i).valeur.get(0));
-  //   }
-  // }
-
-
   public static ArrayList<DFA> step3Determinisation(int etat, NDFAutomaton matriceEtape2) {
     // dans l'étape 1 la variable etat est 0
     if (!findOccurenceEpsilonTable(etat, matriceEtape2.epsilonTransitionTable).isEmpty()) {
       // etape 1
       ArrayList<Integer> listATraiter = findOccurenceEpsilonTable(etat, matriceEtape2.epsilonTransitionTable);
-      if(etat==0)
+      if (etat == 0)
         listATraiter.add(0, 0);
       return toLoop(listATraiter, matriceEtape2);
     }
