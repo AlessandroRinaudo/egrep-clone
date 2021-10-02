@@ -37,10 +37,11 @@ public class RegEx implements Macros {
       // NDFAutomaton.step2_AhoUllman2(ret); // étape deux de l'algorithme
       NDFAutomaton ndfa = NDFAutomaton.step2_AhoUllman(ret); // étape deux de l'algorithme
       System.out.println("NDFA construction:\n\nBEGIN NDFA\n" + ndfa.toString() + "END NDFA.\n");
-      Determinisation det = new Determinisation(Determinisation.DeterminisationFinalisation(0, ndfa));
-      Determinisation minimisation = Determinisation.minimisationStep1(det);
+      ArrayList<DFA> determinationList = Determinisation.DeterminisationFinalisation(0, ndfa);
+      Determinisation det = new Determinisation(determinationList,Determinisation.setLast(determinationList,ndfa));
+      // Determinisation minimisation = Determinisation.minimisationStep1(det);
       System.out.println(det);
-      System.out.println(minimisation);
+      // System.out.println(minimisation);
 
     }
   }

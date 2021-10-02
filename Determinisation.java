@@ -3,9 +3,14 @@ import java.util.ArrayList;
 public class Determinisation {
 
   protected ArrayList<DFA> FromNdfaToDfa;
+  protected  ArrayList<Integer>  firstState;
+  protected ArrayList<Integer>  finalState;
 
-  public Determinisation(ArrayList<DFA> FromNdfaToDfa) {
+  public Determinisation(ArrayList<DFA> FromNdfaToDfa,ArrayList<Integer>  finalState ) {
     this.FromNdfaToDfa = FromNdfaToDfa;
+    firstState= new ArrayList<Integer>();
+    firstState.add(0);
+    this.finalState = finalState;
   }
 
   @Override
@@ -14,25 +19,24 @@ public class Determinisation {
     for (int i = 0; i < FromNdfaToDfa.size(); i++) {
       res += FromNdfaToDfa.get(i);
     }
+    res += "\nfirst state : ";
+    for(int i=0;i<firstState.size(); i++)
+      res+=firstState.get(i);
+    res += "\nfinal state : ";
+    for(int i=0;i<finalState.size()-1; i++)
+      res+=finalState.get(i)+", ";
+    res+=finalState.get(finalState.size()-1);
     return res;
   }
 
-  public static Determinisation minimisationStep1(Determinisation det) {
-    ArrayList<DFA> dete = det.FromNdfaToDfa;
-    ArrayList<DFA> res = new ArrayList<DFA>();
-    for (int i = 0; i < dete.size(); i++) {
-      int nLine = dete.get(i).line.get(0);
-      int nColoumn = dete.get(i).column;
-      int nValeur = dete.get(i).valeur.get(0);
-      res.add(new DFA(fromIntToListInt(nLine), nColoumn, fromIntToListInt(nValeur)));
+  public static ArrayList<Integer>  setLast(ArrayList<DFA> determination,NDFAutomaton matriceEtape2) {
+    ArrayList<Integer>  finalState = new ArrayList<Integer>();
+    for (int i = 0; i < determination.size(); i++) {
+      if (determination.get(i).valeur.contains(matriceEtape2.epsilonTransitionTable.length-1)) {
+        finalState.add(determination.get(i).valeur.get(0));
+      }
     }
-    return new Determinisation(res);
-  }
-
-  private static ArrayList<Integer> fromIntToListInt(int nb) {
-    ArrayList<Integer> res = new ArrayList<Integer>();
-    res.add(nb);
-    return res;
+    return finalState;
   }
 
   public static ArrayList<DFA> DeterminisationFinalisation(int etat, NDFAutomaton matriceEtape2) {
@@ -45,6 +49,7 @@ public class Determinisation {
       determinisationStep1.addAll(toLoop(determinisationStep1.get(i).valeur, matriceEtape2));
     }
     return determinisationStep1;
+    // return setFirstAndLast(determinisationStep1,matriceEtape2);
   }
 
   public static ArrayList<DFA> step3Determinisation(int etat, NDFAutomaton matriceEtape2) {
@@ -98,7 +103,7 @@ public class Determinisation {
         }
         res.addAll(findOccurenceEpsilonTable(listATraiter.get(i), matriceEtape2.epsilonTransitionTable));
         continua = true;
-        listATraiter=res;
+        listATraiter = res;
       }
     }
     return res;
