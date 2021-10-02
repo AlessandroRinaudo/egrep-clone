@@ -40,7 +40,7 @@ public class Determinisation {
     determinisationStep1.addAll(toLoop(determinisationStep1.get(0).valeur, matriceEtape2));
     for (int i = 1; i < determinisationStep1.size(); i++) {
       if (determinisationStep1.get(i).valeur.equals(determinisationStep1.get(i - 1).valeur)) {
-        break;
+        continue;
       }
       determinisationStep1.addAll(toLoop(determinisationStep1.get(i).valeur, matriceEtape2));
     }
@@ -98,7 +98,7 @@ public class Determinisation {
         }
         res.addAll(findOccurenceEpsilonTable(listATraiter.get(i), matriceEtape2.epsilonTransitionTable));
         continua = true;
-        listATraiter = findOccurenceEpsilonTable(listATraiter.get(i), matriceEtape2.epsilonTransitionTable);
+        listATraiter=res;
       }
     }
     return res;
