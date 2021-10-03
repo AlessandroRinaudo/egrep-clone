@@ -5,6 +5,20 @@ import static org.junit.Assert.*;
 public class RegExTest {
 
   @Test
+  public void testExpressionWithAlternAndEtoile() {
+    // Arrange
+    String expression = "a|bc*";
+    RegExTree ret = null;
+    String expectedResult = "|(a,.(b,*(c)))";
+
+    // Act
+    RegExTree treeResult = RegEx.toRegexTree(ret, expression);
+
+    // Assert statements
+    assertEquals(expectedResult, treeResult.toString());
+  }
+
+  @Test
   public void testAssert() {
 
     // Variable declaration
