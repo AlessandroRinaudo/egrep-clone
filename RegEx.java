@@ -12,20 +12,16 @@ public class RegEx implements Macros {
     Scanner scanner = new Scanner(System.in);
     System.out.print("\n>> Please enter a regEx: ");
     regEx = scanner.next();
-    regEx = regEx.replace(".", ""); // remove . concatenation
     scanner.close();
     System.out.println(">> Parsing regEx \"" + regEx + "\".");
     System.out.println(">> ...");
     toASCII(regEx);
     RegExTree ret = null;
     // l'algo commence ici
-    toRegexTree(ret, regEx);
+    ret = toRegexTree(ret, regEx);
 
-    // // NDFAutomaton.step2_AhoUllman2(ret); // étape deux de l'algorithme
-    // NDFAutomaton ndfa = NDFAutomaton.step2_AhoUllman(ret); // étape deux de
-    // l'algorithme
-    // System.out.println("NDFA construction:\n\nBEGIN NDFA\n" + ndfa.toString() +
-    // "END NDFA.\n");
+    NDFAutomaton ndfa = NDFAutomaton.step2_AhoUllman(ret); // étape deux de l'algorithme
+    System.out.println("NDFA construction:\n\nBEGIN NDFA\n" + ndfa.toString() + "END NDFA.\n");
     // ArrayList<DFA> determinationList =
     // Determinisation.DeterminisationFinalisation(0, ndfa);
     // Determinisation det = new Determinisation(determinationList,
@@ -49,6 +45,7 @@ public class RegEx implements Macros {
 
   public static RegExTree toRegexTree(RegExTree ret, String regEx) {
     try {
+      regEx = regEx.replace(".", ""); // remove . concatenation
       ret = parse(regEx); // fonction parse de la string regEx
       System.out.println(">> Tree result: " + ret.toString() + "\n");
     } catch (Exception e) {

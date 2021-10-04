@@ -1,15 +1,21 @@
 import org.junit.Test;
-
 import static org.junit.Assert.*;
+
+import org.junit.BeforeClass;
 
 public class RegExTest {
 
+  @BeforeClass
+  public static void initAll() {
+    System.out.println("Test begining");
+  }
+
   @Test
-  public void testExpressionWithAlternAndEtoile() {
+  public void regexTreeWithNothing() {
     // Arrange
-    String expression = "a|bc*";
+    String expression = "abc";
     RegExTree ret = null;
-    String expectedResult = "|(a,.(b,*(c)))";
+    String expectedResult = ".(.(a,b),c)";
 
     // Act
     RegExTree treeResult = RegEx.toRegexTree(ret, expression);
@@ -19,17 +25,58 @@ public class RegExTest {
   }
 
   @Test
-  public void testAssert() {
+  public void regexTreeWithDot() {
+    String expression = "a.b";
+    RegExTree ret = null;
+    String expectedResult = ".(a,b)";
 
-    // Variable declaration
-    String string1 = "Junit";
-    String string2 = "Junit";
-    int[] airethematicArrary1 = { 1, 2, 3 };
-    int[] airethematicArrary2 = { 1, 2, 3 };
+    RegExTree treeResult = RegEx.toRegexTree(ret, expression);
 
-    // Assert statements
-    assertEquals(string1, string2);
-    assertArrayEquals(airethematicArrary1, airethematicArrary2);
+    assertEquals(expectedResult, treeResult.toString());
+  }
+
+  @Test
+  public void regexTreeWithDotInterpretation() {
+    String expression = "a.b";
+    RegExTree ret = null;
+    String expectedResult = ".(.(a,.),b)";
+
+    RegExTree treeResult = RegEx.toRegexTree(ret, expression);
+
+    assertNotSame(expectedResult, treeResult.toString());
+  }
+
+  @Test
+  public void regexTreeWithException() throws Exception {
+    String expression = "*";
+    RegExTree ret = null;
+    String expectedResult = null;
+
+    RegExTree treeResult = RegEx.toRegexTree(ret, expression);
+
+    assertEquals(expectedResult, treeResult);
+
+  }
+
+  @Test
+  public void regexTreeWithAlternAndEtoile() {
+    String expression = "a|bc*";
+    RegExTree ret = null;
+    String expectedResult = "|(a,.(b,*(c)))";
+
+    RegExTree treeResult = RegEx.toRegexTree(ret, expression);
+    assertEquals(expectedResult, treeResult.toString());
+  }
+
+  @Test
+  public void expressionNDFAutomaton() {
+    String expression = "a|bc*";
+    RegExTree ret = null;
+    String expectedResult = "|(a,.(b,*(c)))";
+
+    RegExTree treeResult = RegEx.toRegexTree(ret, expression);
+
+    assertEquals(expectedResult, treeResult.toString());
   }
 
 }
