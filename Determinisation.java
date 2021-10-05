@@ -3,12 +3,12 @@ import java.util.ArrayList;
 public class Determinisation {
 
   protected ArrayList<DFA> FromNdfaToDfa;
-  protected  ArrayList<Integer>  firstState;
-  protected ArrayList<Integer>  finalState;
+  protected ArrayList<Integer> firstState;
+  protected ArrayList<Integer> finalState;
 
-  public Determinisation(ArrayList<DFA> FromNdfaToDfa,ArrayList<Integer>  finalState ) {
+  public Determinisation(ArrayList<DFA> FromNdfaToDfa, ArrayList<Integer> finalState) {
     this.FromNdfaToDfa = FromNdfaToDfa;
-    firstState= new ArrayList<Integer>();
+    firstState = new ArrayList<Integer>();
     firstState.add(0);
     this.finalState = finalState;
   }
@@ -20,34 +20,34 @@ public class Determinisation {
       res += FromNdfaToDfa.get(i);
     }
     res += "\nfirst state : ";
-    for(int i=0;i<firstState.size(); i++)
-      res+=firstState.get(i);
+    for (int i = 0; i < firstState.size(); i++)
+      res += firstState.get(i);
     res += "\nfinal state : ";
-    for(int i=0;i<finalState.size()-1; i++)
-      res+=finalState.get(i)+", ";
-    res+=finalState.get(finalState.size()-1);
-    res+="\n\nEND DETERMINISATION\n";
+    for (int i = 0; i < finalState.size() - 1; i++)
+      res += finalState.get(i) + ", ";
+    res += finalState.get(finalState.size() - 1);
+    res += "\n\nEND DETERMINISATION\n";
     return res;
   }
 
   /**
    * Set a list with the last elements of an automata state
    */
-  public static ArrayList<Integer>  setLast(ArrayList<DFA> determination,NDFAutomaton matriceEtape2) {
-    ArrayList<Integer>  finalState = new ArrayList<Integer>();
+  public static ArrayList<Integer> setLast(ArrayList<DFA> determination, NDFAutomaton matriceEtape2) {
+    ArrayList<Integer> finalState = new ArrayList<Integer>();
     for (int i = 0; i < determination.size(); i++) {
-      if (determination.get(i).valeur.contains(matriceEtape2.epsilonTransitionTable.length-1)) {
-          finalState.add(determination.get(i).valeur.get(0));
+      if (determination.get(i).valeur.contains(matriceEtape2.epsilonTransitionTable.length - 1)) {
+        finalState.add(determination.get(i).valeur.get(0));
       }
     }
-    //remove double elements
-    for(int i=0; i<finalState.size()-1; i++) {
-      if(finalState.get(i)==(finalState.get(i+1)))
-      finalState.remove(finalState.get(i));
+    // remove double elements
+    for (int i = 0; i < finalState.size() - 1; i++) {
+      if (finalState.get(i) == (finalState.get(i + 1)))
+        finalState.remove(finalState.get(i));
     }
     return finalState;
   }
-  
+
   public static ArrayList<DFA> DeterminisationFinalisation(int etat, NDFAutomaton matriceEtape2) {
     ArrayList<DFA> determinisationStep1 = step3Determinisation(etat, matriceEtape2);
     determinisationStep1.addAll(toLoop(determinisationStep1.get(0).valeur, matriceEtape2));
@@ -56,6 +56,10 @@ public class Determinisation {
         continue;
       }
       determinisationStep1.addAll(toLoop(determinisationStep1.get(i).valeur, matriceEtape2));
+      //to whatch
+      if(determinisationStep1.contains(determinisationStep1.get(i))) {
+        break;
+      }
     }
     return determinisationStep1;
   }
@@ -65,6 +69,12 @@ public class Determinisation {
     if (!findOccurenceEpsilonTable(etat, matriceEtape2.epsilonTransitionTable).isEmpty()) {
       // etape 1
       ArrayList<Integer> listATraiter = findOccurenceEpsilonTable(etat, matriceEtape2.epsilonTransitionTable);
+      if (needMoreEpsilon(listATraiter, matriceEtape2)) {
+        ArrayList<Integer> newList = aggiungiEpsilon(listATraiter, matriceEtape2.epsilonTransitionTable);
+        if (etat == 0)
+          newList.add(0, 0);
+      return toLoop(newList, matriceEtape2);
+      }
       if (etat == 0)
         listATraiter.add(0, 0);
       return toLoop(listATraiter, matriceEtape2);
@@ -73,6 +83,47 @@ public class Determinisation {
     listATraiter.add(0);
     return toLoop(listATraiter, matriceEtape2);
 
+  }
+
+  public static boolean needMoreEpsilon(ArrayList<Integer> listATraiter, NDFAutomaton matriceEtape2) {
+    ArrayList<Integer>[] epsilonTable = matriceEtape2.epsilonTransitionTable;
+    for (int i = 0; i < listATraiter.size(); i++) {
+      if (!epsilonTable[listATraiter.get(i)].isEmpty()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public static ArrayList<Integer> addEpsilonFirstStep(ArrayList<Integer> listATraiter, NDFAutomaton matriceEtape2) {
+    ArrayList<Integer> res = new ArrayList<Integer>();    
+    res.addAll(listATraiter);
+    ArrayList<Integer>[] epsilonTable = matriceEtape2.epsilonTransitionTable;
+
+    while (!listATraiter.isEmpty()) {
+
+      for (int i = 0; i < listATraiter.size(); i++) {
+        if (!epsilonTable[listATraiter.get(i)].isEmpty()) {
+
+          listATraiter.addAll(epsilonTable[listATraiter.get(i)]);
+          res.addAll(epsilonTable[listATraiter.get(i)]);
+          listATraiter.remove(i);
+        } 
+        else {
+          try { listATraiter.remove(i); } catch (Exception e) { }
+        }
+      }
+    }
+    return res;
+  }
+
+  private static ArrayList<Integer> aggiungiEpsilon(ArrayList<Integer> listATraiter,ArrayList<Integer>[] epsilonTable){
+    for (int i = 0; i < listATraiter.size(); i++) {
+      if (!epsilonTable[listATraiter.get(i)].isEmpty()) {
+        listATraiter.addAll(epsilonTable[listATraiter.get(i)]);
+      } 
+    }
+    return listATraiter;
   }
 
   public static ArrayList<DFA> toLoop(ArrayList<Integer> listATraiter, NDFAutomaton matriceEtape2) {
