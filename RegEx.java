@@ -38,11 +38,14 @@ public class RegEx implements Macros {
       NDFAutomaton ndfa = NDFAutomaton.step2_AhoUllman(ret); // étape deux de l'algorithme
       System.out.println("NDFA construction:\n\nBEGIN NDFA\n" + ndfa.toString() + "END NDFA.\n");
       ArrayList<DFA> determinationList = Determinisation.DeterminisationFinalisation(0, ndfa);
-      Determinisation det = new Determinisation(determinationList,Determinisation.setLast(determinationList,ndfa));
-      // Determinisation minimisation = Determinisation.minimisationStep1(det);
+      Determinisation det = new Determinisation(determinationList, Determinisation.setLast(determinationList, ndfa));
       System.out.println(det);
-      // System.out.println(minimisation);
+      ArrayList<Automate> automateDeterminise = Automate.minimiseAutomaton(det.FromNdfaToDfa);
+      System.out.println(automateDeterminise);
 
+      String word="abaco";
+      System.out.println(RegexTesting.singleChar(word,automateDeterminise));
+      
     }
   }
 
