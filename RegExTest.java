@@ -67,16 +67,4 @@ public class RegExTest {
     RegExTree treeResult = RegEx.toRegexTree(ret, expression);
     assertEquals(expectedResult, treeResult.toString());
   }
-
-  @Test
-  public void expressionNDFAutomaton() {
-    String expression = "a|bc*";
-    RegExTree ret = null;
-    String expectedResult = "|(a,.(b,*(c)))";
-
-    RegExTree treeResult = RegEx.toRegexTree(ret, expression);
-
-    assertEquals(expectedResult, treeResult.toString());
-  }
-
 }
