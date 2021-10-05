@@ -11,6 +11,14 @@ public class NDFAutomaton implements Macros {
     this.epsilonTransitionTable = epsilonTransitionTable;
   }
 
+  public ArrayList<Integer>[] getEpsilonTransition() {
+    return epsilonTransitionTable;
+  }
+
+  public int[][] getTransition() {
+    return transitionTable;
+  }
+
   // PRINT THE AUTOMATON TRANSITION TABLE
   public String toString() {
     // INIT STATE IS ALWAYS 0; FINAL STATE IS ALWAYS transitionTable.length-1
