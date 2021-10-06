@@ -13,7 +13,7 @@ public class NDFAutomatonTest {
   }
 
   @Test
-  public void ndfaWithNothing() {
+  public void simpleNdfa() {
     // Arrange
     String expression = "abc";
     RegExTree ret = null;
@@ -78,7 +78,6 @@ public class NDFAutomatonTest {
     assertEquals(expectedFinalState, finalState);
   }
 
-  // not working
   @Test
   public void ndfaWithAlternAndEtoile() {
     String expression = "a|bc*";

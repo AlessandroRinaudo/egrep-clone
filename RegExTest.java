@@ -11,7 +11,7 @@ public class RegExTest {
   }
 
   @Test
-  public void regexTreeWithNothing() {
+  public void simpleRegexTree() {
     // Arrange
     String expression = "abc";
     RegExTree ret = null;

@@ -13,7 +13,7 @@ public class Automate {
 
   @Override
   public String toString() {
-    return "\n\n" + line + " --> " + (char) column + " --> " + valeur +"\n\n";
+    return "\n"+ line + " --> " + (char) column + " --> " + valeur;
   }
 
   public static ArrayList<Automate> minimiseAutomaton (ArrayList<DFA> deterministAutomaton) {

@@ -13,6 +13,6 @@ public class DFA {
 
   @Override
   public String toString() {
-    return "\n\nline=" + line + ", column=" + (char) column + ", valeur=" + valeur +"\n\n";
+    return "\nline=" + line + ", column=" + (char) column + ", valeur=" + valeur;
   }
 }
