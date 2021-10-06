@@ -24,16 +24,14 @@ public class NDFAutomatonTest {
     int[][] transitionTable = ndfa.getTransition();
     int finalState = transitionTable.length - 1;
     ArrayList<Integer>[] epsilonTransitionTable = ndfa.getEpsilonTransition();
-    int expectedEpsilon[][] = { { -1 }, { 2 }, { -1 }, { 4 } };
+    int expectedEpsilon[][] = { { -1 }, { 2 }, { -1 }, { 4 }, { -1 }, { -1 } };
     int expectedTransition[] = { 1, -1, 3, -1, 5 };
 
     // Test for epsilon transition step
     for (int i = 0; i < epsilonTransitionTable.length; i++) {
-      for (int state : epsilonTransitionTable[i]) {
+      if (expectedEpsilon[i][0] != -1) {
         for (int j = 0; j < expectedEpsilon[i].length; j++) {
-          if (expectedEpsilon[i][j] != -1) {
-            assertEquals(expectedEpsilon[i][j], state);
-          }
+          assertEquals(expectedEpsilon[i][j], (int) epsilonTransitionTable[i].get(j));
         }
       }
     }
@@ -58,16 +56,14 @@ public class NDFAutomatonTest {
     int[][] transitionTable = ndfa.getTransition();
     int finalState = transitionTable.length - 1;
     ArrayList<Integer>[] epsilonTransitionTable = ndfa.getEpsilonTransition();
-    int expectedEpsilon[][] = { { -1 }, { 2 } };
+    int expectedEpsilon[][] = { { -1 }, { 2 }, { -1 }, { -1 } };
     int expectedTransition[] = { 1, -1, 3 };
 
     // Test for epsilon transition step
     for (int i = 0; i < epsilonTransitionTable.length; i++) {
-      for (int state : epsilonTransitionTable[i]) {
+      if (expectedEpsilon[i][0] != -1) {
         for (int j = 0; j < expectedEpsilon[i].length; j++) {
-          if (expectedEpsilon[i][j] != -1) {
-            assertEquals(expectedEpsilon[i][j], state);
-          }
+          assertEquals(expectedEpsilon[i][j], (int) epsilonTransitionTable[i].get(j));
         }
       }
     }
@@ -93,18 +89,14 @@ public class NDFAutomatonTest {
     int[][] transitionTable = ndfa.getTransition();
     int finalState = transitionTable.length - 1;
     ArrayList<Integer>[] epsilonTransitionTable = ndfa.getEpsilonTransition();
-    int expectedEpsilon[][] = { { 1, 3 }, { -1 }, { 9 }, { -1 }, { 5 }, { 6, 8 }, { -1 }, { 8, 6 }, { 9 } };
+    int expectedEpsilon[][] = { { 1, 3 }, { -1 }, { 9 }, { -1 }, { 5 }, { 6, 8 }, { -1 }, { 8, 6 }, { 9 }, { -1 } };
     int expectedTransition[] = { -1, 2, -1, 4, -1, -1, 7 };
 
     // Test for epsilon transition step
     for (int i = 0; i < epsilonTransitionTable.length; i++) {
-      for (int state : epsilonTransitionTable[i]) {
+      if (expectedEpsilon[i][0] != -1) {
         for (int j = 0; j < expectedEpsilon[i].length; j++) {
-          if (expectedEpsilon[i][j] != -1) {
-            System.out.println("state " + state);
-            System.out.println("expectedEpsilon[i][j] " + expectedEpsilon[i][j]);
-            // assertEquals(expectedEpsilon[i][j], state);
-          }
+          assertEquals(expectedEpsilon[i][j], (int) epsilonTransitionTable[i].get(j));
         }
       }
     }
