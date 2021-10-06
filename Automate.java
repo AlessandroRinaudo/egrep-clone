@@ -27,4 +27,27 @@ public class Automate {
     return states;
   }
 
+  public static ArrayList<Integer> setInitialLetter (Determinisation det,ArrayList<Automate> automateDeterminise) {
+    ArrayList<Integer> firstState = det.firstState;
+    ArrayList<Integer> initialsLetter = new ArrayList<Integer>();
+    for(int i = 0; i<automateDeterminise.size(); i++) {
+      if(!initialsLetter.contains(automateDeterminise.get(i).column)) {
+        if(firstState.contains(automateDeterminise.get(i).line)) 
+          initialsLetter.add(automateDeterminise.get(i).column);
+      }
+    }
+    return initialsLetter;   
+  } 
+  public static ArrayList<Integer> setFinalsLetter (Determinisation det,ArrayList<Automate> automateDeterminise) {
+    ArrayList<Integer> finalState = det.finalState;
+    ArrayList<Integer> finalsLetter = new ArrayList<Integer>();
+    for(int i = 0; i<automateDeterminise.size(); i++) {
+      if(!finalsLetter.contains(automateDeterminise.get(i).column)) {
+        if(finalState.contains(automateDeterminise.get(i).valeur)) 
+          finalsLetter.add(automateDeterminise.get(i).column);
+      }
+    }
+    return finalsLetter;
+  } 
+
 }

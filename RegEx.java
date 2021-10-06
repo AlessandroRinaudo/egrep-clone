@@ -25,11 +25,10 @@ public class RegEx implements Macros {
     ArrayList<DFA> determinationList = Determinisation.DeterminisationFinalisation(0, ndfa);
     Determinisation det = new Determinisation(determinationList, Determinisation.setLast(determinationList, ndfa));
     System.out.println(det);
-    ArrayList<Automate> automateDeterminise = Automate.minimiseAutomaton(det.FromNdfaToDfa);
-    System.out.println(automateDeterminise);
 
-    String word = "abaco";
-    System.out.println(RegexTesting.singleChar(word, automateDeterminise));
+    ArrayList<Automate> automateDeterminise = Automate.minimiseAutomaton(det.FromNdfaToDfa);
+    CompleteAutomaton automateAfterDeterminisationStep = new CompleteAutomaton(automateDeterminise,Automate.setInitialLetter(det,automateDeterminise),Automate.setFinalsLetter(det,automateDeterminise));
+    System.out.println(automateAfterDeterminisationStep);
   }
 
   public static void toASCII(String regEx) {
