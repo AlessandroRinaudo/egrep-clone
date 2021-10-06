@@ -57,9 +57,9 @@ public class Determinisation {
       }
       determinisationStep1.addAll(toLoop(determinisationStep1.get(i).valeur, matriceEtape2));
       //to whatch
-      if(determinisationStep1.contains(determinisationStep1.get(i))) {
-        break;
-      }
+      // if(determinisationStep1.contains(determinisationStep1.get(i))) {
+      //   break;
+      // }
     }
     return determinisationStep1;
   }

@@ -29,6 +29,8 @@ public class RegEx implements Macros {
     ArrayList<Automate> automateDeterminise = Automate.minimiseAutomaton(det.FromNdfaToDfa);
     CompleteAutomaton automateAfterDeterminisationStep = new CompleteAutomaton(automateDeterminise,Automate.setInitialLetter(det,automateDeterminise),Automate.setFinalsLetter(det,automateDeterminise));
     System.out.println(automateAfterDeterminisationStep);
+    String mot="codduebastaboloabcrtopasta";
+    System.out.println("mot validator : "+CompleteAutomaton.regexValidator(mot, automateAfterDeterminisationStep));
   }
 
   public static void toASCII(String regEx) {
