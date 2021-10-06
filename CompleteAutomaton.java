@@ -6,10 +6,10 @@ public class CompleteAutomaton {
   protected ArrayList<Integer> initialLEtters;
   protected ArrayList<Integer> finalLetters;
 
-  public CompleteAutomaton(ArrayList<Automate> regexAutomaton) {
+  public CompleteAutomaton(ArrayList<Automate> regexAutomaton,ArrayList<Integer> initialLEtters,ArrayList<Integer> finalLetters) {
     this.regexAutomaton = regexAutomaton;
-    initialLEtters= new ArrayList<Integer>();
-    finalLetters=new ArrayList<Integer>();;
+    this.initialLEtters= initialLEtters;
+    this.finalLetters=finalLetters;
   }
 
   @Override
@@ -18,6 +18,8 @@ public class CompleteAutomaton {
     for (int i = 0; i < regexAutomaton.size(); i++) {
       res += regexAutomaton.get(i);
     }
+    res+="\n initial letters : "+  initialLEtters;
+    res+="\n final letters : "+finalLetters;
     res += "\n\nEND AUTOMATE PROPRE\n";
     return res;
   }
