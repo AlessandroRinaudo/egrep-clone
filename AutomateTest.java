@@ -39,7 +39,7 @@ public class AutomateTest {
 
   @Test
   public void automateWithConcat() {
-    String expression = "a.b";
+    String expression = "ab";
     RegExTree ret = null;
     RegExTree treeResult = RegEx.toRegexTree(ret, expression);
     NDFAutomaton ndfa = NDFAutomaton.step2_AhoUllman(treeResult);
@@ -59,7 +59,49 @@ public class AutomateTest {
   }
 
   @Test
-  public void automateWithAltern() {
+  public void automateWithStar() {
+    String expression = "a*b";
+    RegExTree ret = null;
+    RegExTree treeResult = RegEx.toRegexTree(ret, expression);
+    NDFAutomaton ndfa = NDFAutomaton.step2_AhoUllman(treeResult);
+    ArrayList<DFA> determinationList = Determinisation.DeterminisationFinalisation(0, ndfa);
+    Determinisation det = new Determinisation(determinationList, Determinisation.setLast(determinationList, ndfa));
+    ArrayList<Automate> automateDeterminise = Automate.minimiseAutomaton(det.FromNdfaToDfa);
+
+    int expectedDeterminisationLine[] = { 0, 0, 2, 2 };
+    int expectedDeterminisationColumn[] = { 97, 98, 97, 98 };
+    int expectedDeterminisationValue[] = { 2, 5, 2, 5 };
+
+    for (int i = 0; i < automateDeterminise.size(); i++) {
+      assertEquals(expectedDeterminisationLine[i], (int) automateDeterminise.get(i).line);
+      assertEquals((char) expectedDeterminisationColumn[i], (char) automateDeterminise.get(i).column);
+      assertEquals(expectedDeterminisationValue[i], (int) automateDeterminise.get(i).valeur);
+    }
+  }
+
+  @Test
+  public void automateWithAlter() {
+    String expression = "a|b";
+    RegExTree ret = null;
+    RegExTree treeResult = RegEx.toRegexTree(ret, expression);
+    NDFAutomaton ndfa = NDFAutomaton.step2_AhoUllman(treeResult);
+    ArrayList<DFA> determinationList = Determinisation.DeterminisationFinalisation(0, ndfa);
+    Determinisation det = new Determinisation(determinationList, Determinisation.setLast(determinationList, ndfa));
+    ArrayList<Automate> automateDeterminise = Automate.minimiseAutomaton(det.FromNdfaToDfa);
+
+    int expectedDeterminisationLine[] = { 0, 0 };
+    int expectedDeterminisationColumn[] = { 97, 98 };
+    int expectedDeterminisationValue[] = { 2, 4 };
+
+    for (int i = 0; i < automateDeterminise.size(); i++) {
+      assertEquals(expectedDeterminisationLine[i], (int) automateDeterminise.get(i).line);
+      assertEquals((char) expectedDeterminisationColumn[i], (char) automateDeterminise.get(i).column);
+      assertEquals(expectedDeterminisationValue[i], (int) automateDeterminise.get(i).valeur);
+    }
+  }
+
+  @Test
+  public void automateWithAlternComplex() {
     String expression = "ab|ba";
     RegExTree ret = null;
     RegExTree treeResult = RegEx.toRegexTree(ret, expression);
@@ -80,7 +122,7 @@ public class AutomateTest {
   }
 
   @Test
-  public void automateWithAlternAndEtoile() {
+  public void automateWithAlternAndStar() {
     String expression = "a|bc*";
     RegExTree ret = null;
     RegExTree treeResult = RegEx.toRegexTree(ret, expression);

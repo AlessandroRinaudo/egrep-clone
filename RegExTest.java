@@ -26,7 +26,7 @@ public class RegExTest {
 
   @Test
   public void regexTreeWithConcat() {
-    String expression = "a.b";
+    String expression = "ab";
     RegExTree ret = null;
     String expectedResult = ".(a,b)";
 
@@ -36,7 +36,29 @@ public class RegExTest {
   }
 
   @Test
-  public void regexTreeWithConcatInterpretation() {
+  public void regexTreeWithStar() {
+    String expression = "a*b";
+    RegExTree ret = null;
+    String expectedResult = ".(*(a),b)";
+
+    RegExTree treeResult = RegEx.toRegexTree(ret, expression);
+
+    assertEquals(expectedResult, treeResult.toString());
+  }
+
+  @Test
+  public void regexTreeWithAltern() {
+    String expression = "a|b";
+    RegExTree ret = null;
+    String expectedResult = "|(a,b)";
+
+    RegExTree treeResult = RegEx.toRegexTree(ret, expression);
+
+    assertEquals(expectedResult, treeResult.toString());
+  }
+
+  @Test
+  public void regexTreeWithDot() {
     String expression = "a.b";
     RegExTree ret = null;
     String expectedResult = ".(.(a,.),b)";
@@ -55,11 +77,10 @@ public class RegExTest {
     RegExTree treeResult = RegEx.toRegexTree(ret, expression);
 
     assertEquals(expectedResult, treeResult);
-
   }
 
   @Test
-  public void regexTreeWithAltern() {
+  public void regexTreeWithAlternComplex() {
     String expression = "ab|ba";
     RegExTree ret = null;
     String expectedResult = "|(.(a,b),.(b,a))";
@@ -69,7 +90,7 @@ public class RegExTest {
   }
 
   @Test
-  public void regexTreeWithAlternAndEtoile() {
+  public void regexTreeWithAlternAndStar() {
     String expression = "a|bc*";
     RegExTree ret = null;
     String expectedResult = "|(a,.(b,*(c)))";
