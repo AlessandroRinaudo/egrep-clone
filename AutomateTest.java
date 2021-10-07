@@ -39,7 +39,7 @@ public class AutomateTest {
   }
 
   @Test
-  public void automateWithDot() {
+  public void automateWithConcat() {
     String expression = "a.b";
     RegExTree ret = null;
     RegExTree treeResult = RegEx.toRegexTree(ret, expression);
@@ -52,6 +52,28 @@ public class AutomateTest {
     int expectedDeterminisationLine[] = { 0, 1 };
     int expectedDeterminisationColumn[] = { 97, 98 };
     int expectedDeterminisationValue[] = { 1, 3 };
+
+    for (int i = 0; i < automateDeterminise.size(); i++) {
+      assertEquals(expectedDeterminisationLine[i], (int) automateDeterminise.get(i).line);
+      assertEquals((char) expectedDeterminisationColumn[i], (char) automateDeterminise.get(i).column);
+      assertEquals(expectedDeterminisationValue[i], (int) automateDeterminise.get(i).valeur);
+    }
+  }
+
+  @Test
+  public void automateWithAltern() {
+    String expression = "ab|ba";
+    RegExTree ret = null;
+    RegExTree treeResult = RegEx.toRegexTree(ret, expression);
+    NDFAutomaton ndfa = NDFAutomaton.step2_AhoUllman(treeResult);
+    ArrayList<DFA> determinationList = Determinisation.DeterminisationFinalisation(0, ndfa);
+    Determinisation det = new Determinisation(determinationList, Determinisation.setLast(determinationList, ndfa));
+    ArrayList<Automate> automateDeterminise = Automate.minimiseAutomaton(det.FromNdfaToDfa);
+    System.out.println(automateDeterminise.get(0).line);
+
+    int expectedDeterminisationLine[] = { 0, 0, 2, 6 };
+    int expectedDeterminisationColumn[] = { 97, 98, 98, 97 };
+    int expectedDeterminisationValue[] = { 2, 6, 4, 8 };
 
     for (int i = 0; i < automateDeterminise.size(); i++) {
       assertEquals(expectedDeterminisationLine[i], (int) automateDeterminise.get(i).line);

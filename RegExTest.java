@@ -25,7 +25,7 @@ public class RegExTest {
   }
 
   @Test
-  public void regexTreeWithDot() {
+  public void regexTreeWithConcat() {
     String expression = "a.b";
     RegExTree ret = null;
     String expectedResult = ".(a,b)";
@@ -36,7 +36,7 @@ public class RegExTest {
   }
 
   @Test
-  public void regexTreeWithDotInterpretation() {
+  public void regexTreeWithConcatInterpretation() {
     String expression = "a.b";
     RegExTree ret = null;
     String expectedResult = ".(.(a,.),b)";
@@ -56,6 +56,16 @@ public class RegExTest {
 
     assertEquals(expectedResult, treeResult);
 
+  }
+
+  @Test
+  public void regexTreeWithAltern() {
+    String expression = "ab|ba";
+    RegExTree ret = null;
+    String expectedResult = "|(.(a,b),.(b,a))";
+
+    RegExTree treeResult = RegEx.toRegexTree(ret, expression);
+    assertEquals(expectedResult, treeResult.toString());
   }
 
   @Test
