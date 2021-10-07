@@ -27,7 +27,8 @@ public class RegEx implements Macros {
     System.out.println(det);
 
     ArrayList<Automate> automateDeterminise = Automate.minimiseAutomaton(det.FromNdfaToDfa);
-    CompleteAutomaton automateAfterDeterminisationStep = new CompleteAutomaton(automateDeterminise,Automate.setInitialLetter(det,automateDeterminise),Automate.setFinalsLetter(det,automateDeterminise));
+    CompleteAutomaton automateAfterDeterminisationStep = new CompleteAutomaton(automateDeterminise,
+        Automate.setInitialLetter(det, automateDeterminise), Automate.setFinalsLetter(det, automateDeterminise));
     System.out.println(automateAfterDeterminisationStep);
   }
 
@@ -47,7 +48,8 @@ public class RegEx implements Macros {
     try {
       regEx = regEx.replace(".", ""); // remove . concatenation
       ret = parse(regEx); // fonction parse de la string regEx
-      System.out.println(">> Tree result: " + ret.toString() + "\n");
+      // System.out.println(">> Regex: " + regEx);
+      System.out.println(">> Tree result: " + ret.toString());
     } catch (Exception e) {
       System.err.println(">> ERROR: syntax error for regEx \"" + regEx + "\".");
     }

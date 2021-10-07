@@ -9,7 +9,7 @@ public class AutomateTest {
 
   @BeforeClass
   public static void initAll() {
-    System.out.println("Test Automate begining");
+    System.out.println("\nTest Automate begining");
   }
 
   @Test
@@ -22,7 +22,6 @@ public class AutomateTest {
     ArrayList<DFA> determinationList = Determinisation.DeterminisationFinalisation(0, ndfa);
     Determinisation det = new Determinisation(determinationList, Determinisation.setLast(determinationList, ndfa));
     ArrayList<Automate> automateDeterminise = Automate.minimiseAutomaton(det.FromNdfaToDfa);
-    System.out.println(automateDeterminise.get(0).line);
 
     int expectedDeterminisationLine[] = { 0, 1, 3 };
     int expectedDeterminisationColumn[] = { 97, 98, 99 };
@@ -47,7 +46,6 @@ public class AutomateTest {
     ArrayList<DFA> determinationList = Determinisation.DeterminisationFinalisation(0, ndfa);
     Determinisation det = new Determinisation(determinationList, Determinisation.setLast(determinationList, ndfa));
     ArrayList<Automate> automateDeterminise = Automate.minimiseAutomaton(det.FromNdfaToDfa);
-    System.out.println(automateDeterminise.get(0).line);
 
     int expectedDeterminisationLine[] = { 0, 1 };
     int expectedDeterminisationColumn[] = { 97, 98 };
@@ -69,7 +67,6 @@ public class AutomateTest {
     ArrayList<DFA> determinationList = Determinisation.DeterminisationFinalisation(0, ndfa);
     Determinisation det = new Determinisation(determinationList, Determinisation.setLast(determinationList, ndfa));
     ArrayList<Automate> automateDeterminise = Automate.minimiseAutomaton(det.FromNdfaToDfa);
-    System.out.println(automateDeterminise.get(0).line);
 
     int expectedDeterminisationLine[] = { 0, 0, 2, 6 };
     int expectedDeterminisationColumn[] = { 97, 98, 98, 97 };
@@ -91,7 +88,6 @@ public class AutomateTest {
     ArrayList<DFA> determinationList = Determinisation.DeterminisationFinalisation(0, ndfa);
     Determinisation det = new Determinisation(determinationList, Determinisation.setLast(determinationList, ndfa));
     ArrayList<Automate> automateDeterminise = Automate.minimiseAutomaton(det.FromNdfaToDfa);
-    System.out.println(automateDeterminise.get(0).line);
 
     int expectedDeterminisationLine[] = { 0, 0, 4 };
     int expectedDeterminisationColumn[] = { 97, 98, 99 };

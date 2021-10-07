@@ -7,7 +7,7 @@ public class RegExTest {
 
   @BeforeClass
   public static void initAll() {
-    System.out.println("Test Regex tree begining");
+    System.out.println("\nTest Regex tree begining");
   }
 
   @Test

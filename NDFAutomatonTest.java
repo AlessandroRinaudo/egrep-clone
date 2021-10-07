@@ -9,7 +9,7 @@ public class NDFAutomatonTest {
 
   @BeforeClass
   public static void initAll() {
-    System.out.println("Test NDF Automaton begining");
+    System.out.println("\nTest NDF Automaton begining");
   }
 
   @Test
