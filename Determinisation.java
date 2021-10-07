@@ -78,7 +78,6 @@ public class Determinisation {
         if (etat == 0)
           newList.add(0, 0);
         moreEpsilonState=true;
-        System.out.println("Mi chiamo EPSILON : "+moreEpsilonState);
         return toLoop(newList, matriceEtape2);
       }
       if (etat == 0)
