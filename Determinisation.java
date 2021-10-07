@@ -5,12 +5,14 @@ public class Determinisation {
   protected ArrayList<DFA> FromNdfaToDfa;
   protected ArrayList<Integer> firstState;
   protected ArrayList<Integer> finalState;
+  public static boolean moreEpsilonState;
 
   public Determinisation(ArrayList<DFA> FromNdfaToDfa, ArrayList<Integer> finalState) {
     this.FromNdfaToDfa = FromNdfaToDfa;
     firstState = new ArrayList<Integer>();
     firstState.add(0);
     this.finalState = finalState;
+    moreEpsilonState=false;
   }
 
   @Override
@@ -57,8 +59,10 @@ public class Determinisation {
       }
       determinisationStep1.addAll(toLoop(determinisationStep1.get(i).valeur, matriceEtape2));
       // to whatch
-      if (determinisationStep1.contains(determinisationStep1.get(i))) {
-        break;
+      if(moreEpsilonState){
+        if (determinisationStep1.contains(determinisationStep1.get(i))) {
+          break;
+      }
       }
     }
     return determinisationStep1;
@@ -73,6 +77,8 @@ public class Determinisation {
         ArrayList<Integer> newList = aggiungiEpsilon(listATraiter, matriceEtape2.epsilonTransitionTable);
         if (etat == 0)
           newList.add(0, 0);
+        moreEpsilonState=true;
+        System.out.println("Mi chiamo EPSILON : "+moreEpsilonState);
         return toLoop(newList, matriceEtape2);
       }
       if (etat == 0)
