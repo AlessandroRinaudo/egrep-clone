@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.lang.Exception;
@@ -27,10 +30,28 @@ public class RegEx implements Macros {
     System.out.println(det);
 
     ArrayList<Automate> automateDeterminise = Automate.minimiseAutomaton(det.FromNdfaToDfa);
-    CompleteAutomaton automateAfterDeterminisationStep = new CompleteAutomaton(automateDeterminise,Automate.setInitialLetter(det,automateDeterminise),Automate.setFinalsLetter(det,automateDeterminise));
+    CompleteAutomaton automateAfterDeterminisationStep = new CompleteAutomaton(automateDeterminise,
+        Automate.setInitialLetter(det, automateDeterminise), Automate.setFinalsLetter(det, automateDeterminise));
     System.out.println(automateAfterDeterminisationStep);
-    String mot="codduebastaboloabcrtopasta";
-    System.out.println("mot validator : "+CompleteAutomaton.regexValidator(mot, automateAfterDeterminisationStep));
+    // String mot = "codduebastaboloabcrtopasta";
+    String mot = "ciaoSargonaq";
+    System.out.println("mot validator : " + CompleteAutomaton.regexValidator(mot, automateAfterDeterminisationStep));
+
+    // le text
+    ArrayList<String> text = new ArrayList<String>();
+    try (BufferedReader br = new BufferedReader(new FileReader("test.txt"))) {
+      String sCurrentLine;
+      while ((sCurrentLine = br.readLine()) != null) {
+        text.add(sCurrentLine);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+
+    // split and execute search
+    // String resultatParser = BookSearch.searchRegexInBook(text, automateAfterDeterminisationStep);
+    // System.out.println("Lignes contenantes le mot : \n" + resultatParser);
   }
 
   public static void toASCII(String regEx) {
