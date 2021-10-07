@@ -56,10 +56,10 @@ public class Determinisation {
         continue;
       }
       determinisationStep1.addAll(toLoop(determinisationStep1.get(i).valeur, matriceEtape2));
-      //to whatch
-      // if(determinisationStep1.contains(determinisationStep1.get(i))) {
-      //   break;
-      // }
+      // to whatch
+      if (determinisationStep1.contains(determinisationStep1.get(i))) {
+        break;
+      }
     }
     return determinisationStep1;
   }
@@ -73,7 +73,7 @@ public class Determinisation {
         ArrayList<Integer> newList = aggiungiEpsilon(listATraiter, matriceEtape2.epsilonTransitionTable);
         if (etat == 0)
           newList.add(0, 0);
-      return toLoop(newList, matriceEtape2);
+        return toLoop(newList, matriceEtape2);
       }
       if (etat == 0)
         listATraiter.add(0, 0);
@@ -96,7 +96,7 @@ public class Determinisation {
   }
 
   public static ArrayList<Integer> addEpsilonFirstStep(ArrayList<Integer> listATraiter, NDFAutomaton matriceEtape2) {
-    ArrayList<Integer> res = new ArrayList<Integer>();    
+    ArrayList<Integer> res = new ArrayList<Integer>();
     res.addAll(listATraiter);
     ArrayList<Integer>[] epsilonTable = matriceEtape2.epsilonTransitionTable;
 
@@ -108,20 +108,23 @@ public class Determinisation {
           listATraiter.addAll(epsilonTable[listATraiter.get(i)]);
           res.addAll(epsilonTable[listATraiter.get(i)]);
           listATraiter.remove(i);
-        } 
-        else {
-          try { listATraiter.remove(i); } catch (Exception e) { }
+        } else {
+          try {
+            listATraiter.remove(i);
+          } catch (Exception e) {
+          }
         }
       }
     }
     return res;
   }
 
-  private static ArrayList<Integer> aggiungiEpsilon(ArrayList<Integer> listATraiter,ArrayList<Integer>[] epsilonTable){
+  private static ArrayList<Integer> aggiungiEpsilon(ArrayList<Integer> listATraiter,
+      ArrayList<Integer>[] epsilonTable) {
     for (int i = 0; i < listATraiter.size(); i++) {
       if (!epsilonTable[listATraiter.get(i)].isEmpty()) {
         listATraiter.addAll(epsilonTable[listATraiter.get(i)]);
-      } 
+      }
     }
     return listATraiter;
   }

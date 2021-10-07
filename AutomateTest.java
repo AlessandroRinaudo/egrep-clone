@@ -80,7 +80,7 @@ public class AutomateTest {
   }
 
   @Test
-  public void automateWithAlter() {
+  public void automateWithAltern() {
     String expression = "a|b";
     RegExTree ret = null;
     RegExTree treeResult = RegEx.toRegexTree(ret, expression);
