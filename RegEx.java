@@ -33,10 +33,10 @@ public class RegEx implements Macros {
     CompleteAutomaton automateAfterDeterminisationStep = new CompleteAutomaton(automateDeterminise,
         Automate.setInitialLetter(det, automateDeterminise), Automate.setFinalsLetter(det, automateDeterminise));
     System.out.println(automateAfterDeterminisationStep);
-    // String mot = "codduebastaboloabcrtopasta";
+    String mot = "codduebastaboloabcrtopascodduefinalmenteabctabcdadef";
     // String mot = "ciaoSargonaq";
-    String mot = "dzfeabczdfe";
-    System.out.println("mot validator : " + CompleteAutomaton.regexValidator(mot, automateAfterDeterminisationStep));
+    // String mot = "dzfeabczdfe";
+    System.out.println("mot validator : " + CompleteAutomaton.regexValidator(mot, automateAfterDeterminisationStep,regEx));
 
     // le text
     ArrayList<String> text = new ArrayList<String>();
@@ -51,7 +51,7 @@ public class RegEx implements Macros {
 
 
     // split and execute search
-    String resultatParser = BookSearch.searchRegexInBook(text, automateAfterDeterminisationStep);
+    String resultatParser = BookSearch.searchRegexInBook(text, automateAfterDeterminisationStep,regEx);
     System.out.println("Lignes contenantes le mot : \n\n" + resultatParser);
   }
 

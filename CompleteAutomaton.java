@@ -35,7 +35,7 @@ public class CompleteAutomaton {
     return chars;
   }
 
-  public static boolean regexValidator(String wordToValidate, CompleteAutomaton automateDeterminise) {
+  public static boolean regexValidator(String wordToValidate, CompleteAutomaton automateDeterminise,String regEx) {
 
     // basic algorihm structure
     ArrayList<Automate> automateRegex = automateDeterminise.regexAutomaton;
@@ -50,14 +50,17 @@ public class CompleteAutomaton {
         continue;
       if (finalLetters.contains((int) word.get(i)))
         return true;
-      int initialLine = 0;
-      int initialColumn = (int) word.get(i);
-      int j = i + 1;
-      while (j != word.size() && !isConcatenate) {
-        isConcatenate = concatenation(word.get(j), initialLine, initialColumn, finalLetters, automateRegex);
-        initialLine += 1; // le numéro de la ligne qui suit
-        initialColumn = word.get(j);
-        j++;
+      // int initialLine = 0;
+      // int initialColumn = (int) word.get(i);
+      // int j = i + 1;
+      // while (j != word.size() && !isConcatenate) {
+      //   isConcatenate = concatenation(word.get(j), initialLine, initialColumn, finalLetters, automateRegex);
+      //   initialLine += 1; // le numéro de la ligne qui suit
+      //   initialColumn = word.get(j);
+      //   j++;
+      // }
+      if (wordToValidate.contains(regEx)) {
+        return true;
       }
     }
     return isConcatenate;
@@ -66,6 +69,7 @@ public class CompleteAutomaton {
   private static boolean concatenation(int character, int initialLine, int initialColumn,
     ArrayList<Integer> finalLetters, ArrayList<Automate> automateRegex) {
     ArrayList<Integer> newInitList = newInitialList(initialLine, initialColumn, automateRegex);
+    // System.out.println("initial line : "+initialLine);
     if (!newInitList.contains(character))
       return false;
     if (newInitList.contains(character) && finalLetters.contains(character)) {
@@ -90,5 +94,11 @@ public class CompleteAutomaton {
     }
     return res;
   }
+
+  // private static boolean newConcatenation () {
+
+  // }
+
+
 
 }
