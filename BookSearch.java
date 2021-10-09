@@ -5,6 +5,7 @@ public class BookSearch {
   public static String searchRegexInBook(ArrayList<String> livre, CompleteAutomaton automateDeterminise, String regex) {
     String res = "";
     ArrayList<String> matchLines = new ArrayList<String>();
+    int cpt = 0;
     for (int i = 0; i < livre.size(); i++) {
       // Tableau des mots d'une ligne
       String[] word = livre.get(i).split(" ");
@@ -21,6 +22,7 @@ public class BookSearch {
       for (int w = 0; w < word.length; w++) {
         if (CompleteAutomaton.regexValidator(word[w], automateDeterminise, regex)) {
           res += Color.BLUE + word[w] + Color.RESET + " ";
+          cpt += 1;
         } else {
           res += word[w] + " ";
         }
@@ -29,6 +31,7 @@ public class BookSearch {
         }
       }
     }
+    System.out.println("Match result: " + cpt);
     return res;
   }
 }
