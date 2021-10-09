@@ -1,0 +1,1 @@
+clear;javac RegEx.java && java RegEx
