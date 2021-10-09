@@ -52,12 +52,17 @@ public class Determinisation {
 
   public static ArrayList<DFA> DeterminisationFinalisation(int etat, NDFAutomaton matriceEtape2) {
     ArrayList<DFA> determinisationStep1 = step3Determinisation(etat, matriceEtape2);
+    System.out.println("LISTA TAPPA 1 : "+determinisationStep1);
     determinisationStep1.addAll(toLoop(determinisationStep1.get(0).valeur, matriceEtape2));
     for (int i = 1; i < determinisationStep1.size(); i++) {
-      if (determinisationStep1.get(i).valeur.equals(determinisationStep1.get(i - 1).valeur)) {
-        continue;
-      }
       determinisationStep1.addAll(toLoop(determinisationStep1.get(i).valeur, matriceEtape2));
+      if (lineAndColumnAlreadyPresents(determinisationStep1,determinisationStep1.get(i))) {
+        determinisationStep1.addAll(toLoop(determinisationStep1.get(i+1).valeur, matriceEtape2));
+        determinisationStep1.addAll(toLoop(determinisationStep1.get(i+2).valeur, matriceEtape2));
+        determinisationStep1.addAll(toLoop(determinisationStep1.get(i+3).valeur, matriceEtape2));
+        determinisationStep1.addAll(toLoop(determinisationStep1.get(i+4).valeur, matriceEtape2));
+        break;
+      }
       // to whatch
       if(moreEpsilonState){
         if (determinisationStep1.contains(determinisationStep1.get(i))) {
@@ -67,6 +72,19 @@ public class Determinisation {
     }
     return determinisationStep1;
   }
+
+
+
+  private static boolean lineAndColumnAlreadyPresents (ArrayList<DFA> dfa, DFA actualDfa) {
+    
+    for(DFA dfaArray : dfa) {
+      if(dfaArray.equals(actualDfa)) {
+        // System.out.println("actualDFA : "+actualDfa.line +" , "+(char) actualDfa.column +" , "+actualDfa.valeur);
+        return true;
+    } 
+  }
+    return false;
+}
 
   public static ArrayList<DFA> step3Determinisation(int etat, NDFAutomaton matriceEtape2) {
     // dans l'étape 1 la variable etat est 0
