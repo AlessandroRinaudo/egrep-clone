@@ -54,14 +54,10 @@ public class Determinisation {
     ArrayList<DFA> determinisationStep1 = step3Determinisation(etat, matriceEtape2);
     System.out.println("LISTA TAPPA 1 : "+determinisationStep1);
     determinisationStep1.addAll(toLoop(determinisationStep1.get(0).valeur, matriceEtape2));
-    for (int i = 1; i < determinisationStep1.size(); i++) {
+    for (int i = 1,j=0; i < determinisationStep1.size()&& j<5; i++) {
       determinisationStep1.addAll(toLoop(determinisationStep1.get(i).valeur, matriceEtape2));
       if (lineAndColumnAlreadyPresents(determinisationStep1,determinisationStep1.get(i))) {
-        determinisationStep1.addAll(toLoop(determinisationStep1.get(i+1).valeur, matriceEtape2));
-        determinisationStep1.addAll(toLoop(determinisationStep1.get(i+2).valeur, matriceEtape2));
-        determinisationStep1.addAll(toLoop(determinisationStep1.get(i+3).valeur, matriceEtape2));
-        determinisationStep1.addAll(toLoop(determinisationStep1.get(i+4).valeur, matriceEtape2));
-        break;
+        j++;
       }
       // to whatch
       if(moreEpsilonState){
