@@ -55,19 +55,12 @@ public class Determinisation {
     System.out.println("LISTA TAPPA 1 : "+determinisationStep1);
     determinisationStep1.addAll(toLoop(determinisationStep1.get(0).valeur, matriceEtape2));
     for (int i = 1; i < determinisationStep1.size(); i++) {
-      if (determinisationStep1.get(i).valeur.equals(determinisationStep1.get(i - 1).valeur)) {
-        continue;
-      }
       determinisationStep1.addAll(toLoop(determinisationStep1.get(i).valeur, matriceEtape2));
       if (lineAndColumnAlreadyPresents(determinisationStep1,determinisationStep1.get(i))) {
-        System.out.println("LISTA RIPETENTE : "+determinisationStep1);
         determinisationStep1.addAll(toLoop(determinisationStep1.get(i+1).valeur, matriceEtape2));
         determinisationStep1.addAll(toLoop(determinisationStep1.get(i+2).valeur, matriceEtape2));
         determinisationStep1.addAll(toLoop(determinisationStep1.get(i+3).valeur, matriceEtape2));
         determinisationStep1.addAll(toLoop(determinisationStep1.get(i+4).valeur, matriceEtape2));
-        determinisationStep1.addAll(toLoop(determinisationStep1.get(i+5).valeur, matriceEtape2));
-        determinisationStep1.addAll(toLoop(determinisationStep1.get(i+6).valeur, matriceEtape2));
-        determinisationStep1.addAll(toLoop(determinisationStep1.get(i+7).valeur, matriceEtape2));
         break;
       }
       // to whatch
@@ -80,11 +73,13 @@ public class Determinisation {
     return determinisationStep1;
   }
 
+
+
   private static boolean lineAndColumnAlreadyPresents (ArrayList<DFA> dfa, DFA actualDfa) {
     
     for(DFA dfaArray : dfa) {
       if(dfaArray.equals(actualDfa)) {
-        System.out.println("actualDFA : "+actualDfa.line +" , "+(char) actualDfa.column +" , "+actualDfa.valeur);
+        // System.out.println("actualDFA : "+actualDfa.line +" , "+(char) actualDfa.column +" , "+actualDfa.valeur);
         return true;
     } 
   }
