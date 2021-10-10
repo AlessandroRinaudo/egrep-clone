@@ -31,12 +31,14 @@ public class RegEx implements Macros {
 
     ArrayList<Automate> automateDeterminise = Automate.minimiseAutomaton(det.FromNdfaToDfa);
     CompleteAutomaton automateAfterDeterminisationStep = new CompleteAutomaton(automateDeterminise,
-        Automate.setInitialLetter(det, automateDeterminise), Automate.setFinalsLetter(det, automateDeterminise));
+        Automate.setInitialLetter(det, automateDeterminise), Automate.setFinalsLetter(det, automateDeterminise),Determinisation.setLast(determinationList, ndfa));
     System.out.println(automateAfterDeterminisationStep);
-    String mot = "codduebastaboloabcrtopascodduefinalmenteabctabcdadef";
+    // String mot = "codduebastaboloabcrtopascodduefinalmenteabctabcdadef";
     // String mot = "ciaoSargonaq";
     // String mot = "dzfeabczdfe";
-    System.out.println("mot validator : " + CompleteAutomaton.regexValidator(mot, automateAfterDeterminisationStep,regEx));
+    // String mot = "ciabSargfgfgfgono";
+    String mot = "state--SargonandMerodach-baladan--Sennacherib'sattempt";
+    System.out.println("mot validator : " + CompleteAutomaton.validatore(mot, automateAfterDeterminisationStep,regEx));
 
     // le text
     ArrayList<String> text = new ArrayList<String>();
