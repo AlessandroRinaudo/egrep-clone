@@ -38,9 +38,10 @@ public class RegEx implements Macros {
     // String mot = "ciaoSargonaq";
     // String mot = "dzfeabczdfe";
     // String mot = "ciabSargfgfgfgono";
-    String mot = "state--Boundary-Stones";
-    System.out
-        .println("mot validator : " + CompleteAutomaton.regexValidator(mot, automateAfterDeterminisationStep, regEx));
+    // String mot = "staSoutherns";
+    // String mot = "ciaoSlargonso";
+    // System.out
+    //     .println("mot validator : " + CompleteAutomaton.regexValidator(mot, automateAfterDeterminisationStep, regEx));
 
     // le text
     ArrayList<String> text = new ArrayList<String>();
