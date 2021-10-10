@@ -52,7 +52,6 @@ public class Determinisation {
 
   public static ArrayList<DFA> DeterminisationFinalisation(int etat, NDFAutomaton matriceEtape2) {
     ArrayList<DFA> determinisationStep1 = step3Determinisation(etat, matriceEtape2);
-    System.out.println("LISTA TAPPA 1 : " + determinisationStep1);
     determinisationStep1.addAll(toLoop(determinisationStep1.get(0).valeur, matriceEtape2));
     int j=0;
     for (int i = 1; i < determinisationStep1.size() && j < 100; i++) {
