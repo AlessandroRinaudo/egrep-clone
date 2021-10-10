@@ -12,7 +12,7 @@ public class Determinisation {
     firstState = new ArrayList<Integer>();
     firstState.add(0);
     this.finalState = finalState;
-    moreEpsilonState=false;
+    moreEpsilonState = false;
   }
 
   @Override
@@ -52,35 +52,53 @@ public class Determinisation {
 
   public static ArrayList<DFA> DeterminisationFinalisation(int etat, NDFAutomaton matriceEtape2) {
     ArrayList<DFA> determinisationStep1 = step3Determinisation(etat, matriceEtape2);
-    System.out.println("LISTA TAPPA 1 : "+determinisationStep1);
+    System.out.println("LISTA TAPPA 1 : " + determinisationStep1);
     determinisationStep1.addAll(toLoop(determinisationStep1.get(0).valeur, matriceEtape2));
-    for (int i = 1,j=0; i < determinisationStep1.size()&& j<5; i++) {
+    for (int i = 1, j = 0; i < determinisationStep1.size() && j < 100; i++) {
       determinisationStep1.addAll(toLoop(determinisationStep1.get(i).valeur, matriceEtape2));
-      if (lineAndColumnAlreadyPresents(determinisationStep1,determinisationStep1.get(i))) {
+      if (lineAndColumnAlreadyPresents(determinisationStep1, determinisationStep1.get(i))) {
         j++;
       }
-      // to whatch
-      if(moreEpsilonState){
-        if (determinisationStep1.contains(determinisationStep1.get(i))) {
-          break;
-      }
+    }
+    return removeDoubleValues(determinisationStep1);
+  }
+
+  private static boolean isEqualDFA(DFA a, DFA b) {
+    return a.line.equals(b.line) && a.column == b.column && a.valeur.equals(b.valeur);
+  }
+
+  private static int findIndexOfDoubleValue(ArrayList<DFA> doublons) {
+    boolean found = false;
+    for (int i = 0; i < doublons.size() && !found; i++) {
+      for (int j = 0; j < doublons.size(); j++) {
+        if (i == j)
+          continue;
+        if (isEqualDFA(doublons.get(i), doublons.get(j)))
+          return j;
       }
     }
-    return determinisationStep1;
+    return -1;
   }
 
+  private static ArrayList<DFA> removeDoubleValues(ArrayList<DFA> doublons) {
+    ArrayList<DFA> res = new ArrayList<DFA>();
+    if (findIndexOfDoubleValue(doublons) != -1) {
+      for (int i = 0; i < findIndexOfDoubleValue(doublons); i++) {
+        res.add(doublons.get(i));
+      }
+    }
+    return res;
+  }
 
+  private static boolean lineAndColumnAlreadyPresents(ArrayList<DFA> dfa, DFA actualDfa) {
 
-  private static boolean lineAndColumnAlreadyPresents (ArrayList<DFA> dfa, DFA actualDfa) {
-    
-    for(DFA dfaArray : dfa) {
-      if(dfaArray.equals(actualDfa)) {
-        // System.out.println("actualDFA : "+actualDfa.line +" , "+(char) actualDfa.column +" , "+actualDfa.valeur);
+    for (DFA dfaArray : dfa) {
+      if (dfaArray.equals(actualDfa)) {
         return true;
-    } 
-  }
+      }
+    }
     return false;
-}
+  }
 
   public static ArrayList<DFA> step3Determinisation(int etat, NDFAutomaton matriceEtape2) {
     // dans l'étape 1 la variable etat est 0
@@ -91,7 +109,7 @@ public class Determinisation {
         ArrayList<Integer> newList = aggiungiEpsilon(listATraiter, matriceEtape2.epsilonTransitionTable);
         if (etat == 0)
           newList.add(0, 0);
-        moreEpsilonState=true;
+        moreEpsilonState = true;
         return toLoop(newList, matriceEtape2);
       }
       if (etat == 0)
