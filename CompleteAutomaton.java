@@ -60,24 +60,36 @@ public class CompleteAutomaton {
 
     int i = 0;
     while (!found && !word.isEmpty() && i < word.size()) {
-      if (!findLetterInAutomaton((int) word.get(i), automateDeterminise)) {
-        word.remove(i);
-        continue;
-      }
+      // if (!findLetterInAutomaton((int) word.get(i), automateDeterminise)) {
+      //   word.remove(i);
+      //   continue;
+      // }
       // check if the letter is the fist of occurences
       if (!isAutorizhedLetter((int) word.get(i), initialState, automateDeterminise)) {
         word.remove(i);
+        ArrayList<Character> word1=subword(word,i);
+        word.clear();
+        word=word1;
+        initialState =0;
+        // System.out.println("Subword : "+word);
         continue;
       }
       // check if the letter is also the final state
       if (isFinalLetter((int) word.get(i), initialState, automateDeterminise)) {
         found = true;
       }
-
       initialState = indexAutorizhedLetter((int) word.get(i), initialState, automateDeterminise);
       i++;
     }
     return found;
+  }
+  
+  private static ArrayList<Character> subword (ArrayList<Character> word,int index) {
+    ArrayList<Character> res = new ArrayList<Character>();
+    for(int i = index+1;i<word.size();i++){
+      res.add(word.get(i));
+    }
+    return res;
   }
 
   private static boolean findLetterInAutomaton(int letter, CompleteAutomaton automataton) {
