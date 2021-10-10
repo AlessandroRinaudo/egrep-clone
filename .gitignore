@@ -1,5 +1,4 @@
-*.class
-*.pdf 
+*.class 
 .DS_Store
 .vscode
 .idea
