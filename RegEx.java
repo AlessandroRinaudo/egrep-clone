@@ -34,9 +34,7 @@ public class RegEx implements Macros {
         Automate.setInitialLetter(det, automateDeterminise), Automate.setFinalsLetter(det, automateDeterminise));
     System.out.println(automateAfterDeterminisationStep);
     String mot = "codduebastaboloabcrtopascodduefinalmenteabctabcdadef";
-    // String mot = "ciaoSargonaq";
-    // String mot = "dzfeabczdfe";
-    System.out.println("mot validator : " + CompleteAutomaton.regexValidator(mot, automateAfterDeterminisationStep,regEx));
+    System.out.println("mot validator : " + CompleteAutomaton.regexValidator(mot, automateAfterDeterminisationStep, regEx));
 
     // le text
     ArrayList<String> text = new ArrayList<String>();
@@ -49,10 +47,9 @@ public class RegEx implements Macros {
       e.printStackTrace();
     }
 
-
     // split and execute search
-    String resultatParser = BookSearch.searchRegexInBook(text, automateAfterDeterminisationStep,regEx);
-    System.out.println("Lignes contenantes le mot : \n\n" + resultatParser);
+    String resultatParser = BookSearch.searchRegexInBook(text, automateAfterDeterminisationStep, regEx);
+    System.out.println("Lignes contenantes l'expression : " + regEx + "\n\n" + resultatParser);
   }
 
   public static void toASCII(String regEx) {
