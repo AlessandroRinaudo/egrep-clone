@@ -1,8 +1,13 @@
 # Regex search engine
 
-To compile and run the search engine program in command line mode, run the following bash commands:
+To run the application open `regex.jar` executable file using the command terminal below:
 
 ```sh
-cd RegEx
+java -jar regex.jar
+```
+
+If it doesn't work try this command in your unix machine 
+
+```sh 
 javac RegEx.java && java RegEx
 ```
