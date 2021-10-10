@@ -48,7 +48,10 @@ public class RegEx implements Macros {
     }
 
     // split and execute search
+    long startTime = System.currentTimeMillis();
     String resultatParser = BookSearch.searchRegexInBook(text, automateAfterDeterminisationStep, regEx);
+    long endTime = System.currentTimeMillis();
+    System.out.println("Temps d'exécution " + (endTime - startTime) + " milliseconds");
     System.out.println("Lignes contenantes l'expression : " + regEx + "\n\n" + resultatParser);
   }
 
