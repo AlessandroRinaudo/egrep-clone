@@ -51,10 +51,9 @@ public class RegEx implements Macros {
       e.printStackTrace();
     }
 
-
     // split and execute search
-    String resultatParser = BookSearch.searchRegexInBook(text, automateAfterDeterminisationStep,regEx);
-    System.out.println("Lignes contenantes le mot : \n\n" + resultatParser);
+    String resultatParser = BookSearch.searchRegexInBook(text, automateAfterDeterminisationStep, regEx);
+    System.out.println("Lignes contenantes l'expression : " + regEx + "\n\n" + resultatParser);
   }
 
   public static void toASCII(String regEx) {
